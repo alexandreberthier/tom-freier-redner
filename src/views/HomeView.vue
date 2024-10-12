@@ -581,7 +581,7 @@ onMounted(() => {
 
   .text-section {
     .text-wrapper {
-      width: 830px;
+      width: 860px;
     }
   }
 
