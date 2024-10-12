@@ -15,6 +15,7 @@
 :root {
     --beige:#9fad88;
     --white: #ffffff;
+    --dark-green: #11423e;
     --darker-green: #0d322f;
 }
 
@@ -36,6 +37,23 @@ p {
 
 a {
     text-decoration: none;
+    color: var(--darker-green);
+    position: relative;
+
+    &:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--darker-green);
+        transition: all 150ms ease-in-out;
+    }
+
+    &:hover::after {
+        width: 100%;
+    }
 }
 
 .content-wrapper {
