@@ -1,0 +1,65 @@
+@font-face {
+    font-family: Quicksand;
+    src: url("../assets/fonts/Quicksand-Regular.ttf") format("truetype"),
+    url("../assets/fonts/Quicksand-Regular.woff2") format("woff2");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Bitter;
+    src: url("../assets/fonts/Bitter-Regular.ttf") format("truetype"),
+    url("../assets/fonts/Bitter-Regular.woff2") format("woff2");
+    font-style: normal;
+}
+
+:root {
+    --beige:#9fad88;
+    --white: #ffffff;
+    --darker-green: #0d322f;
+}
+
+html, body {
+    padding: 0;
+    margin: 0;
+    background-color: var(--white);
+}
+
+h1, h2, h3, h4, h5 {
+    margin: 0;
+    font-family: Bitter, sans-serif;
+}
+
+p {
+    margin: 0;
+    font-family: Quicksand, sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+.content-wrapper {
+    width: 320px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 70px;
+}
+
+@media (min-width: 740px) {
+    .content-wrapper {
+        width: 620px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .content-wrapper {
+        width: 860px;
+    }
+}
+
+@media (min-width: 1920px) {
+    .content-wrapper {
+        width: 1260px;
+    }
+}
