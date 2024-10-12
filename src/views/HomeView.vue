@@ -617,7 +617,7 @@ onMounted(() => {
 
   .text-section {
     .text-wrapper {
-      width: 1024px;
+      width: 1260px;
       display: grid;
       grid-template-columns: repeat(3, auto);
       grid-template-rows: repeat(2, auto);
