@@ -44,7 +44,13 @@ p {
 
 a {
     text-decoration: none;
-    color: var(--darker-green)
+    color: var(--darker-green);
+    box-sizing: border-box;
+
+    &.active {
+      font-weight: bold;
+    }
+
 }
 
 .link {

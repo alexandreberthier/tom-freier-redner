@@ -16,8 +16,11 @@
                      v-for="(link, index) in links"
                      :key="index"
                      :to="{name: link.pathName}">
-          {{ link.linkText }}
+          <span class="link">{{ link.linkText }}</span>
         </router-link>
+      </div>
+      <div class="hide-desktop">
+        <LanguageSelection/>
       </div>
       <div @click="toggleMenu"
            :class="{'active': menuOpen}"
@@ -26,12 +29,15 @@
       </div>
     </div>
     <div class="wrapper">
+      <div class="show-desktop">
+        <LanguageSelection/>
+      </div>
       <DynamicButton
           :button-type="ButtonType.Primary"
           :has-link="true"
           path-name="home"
           hash="#contact"
-          button-text="Lass uns Reden"
+          :button-text="centralStore.translations.letsSpeak"
       />
     </div>
   </div>
@@ -40,11 +46,14 @@
 <script setup lang="ts">
 
 
-import {onMounted, onUnmounted, ref, type Ref} from "vue";
+import {computed, type ComputedRef, onMounted, onUnmounted, ref, type Ref} from "vue";
 import {ButtonType} from "@/models/Enums";
 import type {Link} from "@/models/PropInterfaces";
 import DynamicButton from "@/components/DynamicButton.vue";
+import {useCentralStore} from "@/stores/central";
+import LanguageSelection from "@/components/LanguageSelection.vue";
 
+const centralStore = useCentralStore()
 
 const menuOpen: Ref<boolean> = ref(false)
 
@@ -83,21 +92,21 @@ onUnmounted(() => {
 })
 
 
-const links: Ref<Link[]> = ref([
+const links: ComputedRef<Link[]> = computed(() => [
   {
-    linkText: 'Über mich',
+    linkText: centralStore.translations?.aboutHeader,
     pathName: 'about'
   },
   {
-    linkText: 'Hochzeit',
+    linkText: centralStore.translations?.weddingHeader,
     pathName: 'wedding'
   },
   {
-    linkText: 'Kinderwillkommensfest',
+    linkText: centralStore.translations?.childCelebrationHeader,
     pathName: 'child-celebration'
   },
   {
-    linkText: 'Lebensfeier / Trauerfeier',
+    linkText: centralStore.translations?.funeralHeader,
     pathName: 'celebrations'
   }
 ])
@@ -146,6 +155,7 @@ const links: Ref<Link[]> = ref([
   .right-content {
     display: flex;
     align-items: center;
+    gap: 10px;
 
     .link-menu {
       display: flex;
@@ -237,10 +247,18 @@ const links: Ref<Link[]> = ref([
 
 .wrapper {
   display: none;
+
+  .show-desktop {
+    display: none;
+  }
 }
 
 
 @media (min-width: 1200px) {
+  .hide-desktop {
+    display: none;
+  }
+
   .nav-wrapper {
     height: 110px;
     padding: 5px 25px 5px 0;
@@ -250,7 +268,7 @@ const links: Ref<Link[]> = ref([
         display: flex;
         flex-direction: row;
         align-items: center;
-        gap: 40px;
+        gap: 35px;
         position: static;
         height: 100%;
         z-index: 50;
@@ -260,7 +278,7 @@ const links: Ref<Link[]> = ref([
         padding-top: 0;
 
         a {
-          font-size: 24px;
+          font-size: 22px;
         }
       }
 
@@ -271,7 +289,12 @@ const links: Ref<Link[]> = ref([
   }
 
   .wrapper {
-    display: block;
+    display: flex;
+    gap: 10px;
+
+    .show-desktop {
+      display: block;
+    }
   }
 }
 </style>

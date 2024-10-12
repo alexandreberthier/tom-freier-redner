@@ -186,82 +186,18 @@ const socials: Ref<SocialLink[]> = ref([
     .footer-wrapper {
       padding: 24px 50px;
       flex-direction: row;
-      justify-content: space-between;
-
-      .link-section {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        width: 50%;
-
-        .links-header {
-          font-weight: bold;
-        }
-
-        .link-flex {
-          display: flex;
-          flex-direction: column;
-          gap: 8px;
-        }
-      }
+      justify-content: center;
+      gap: 50px;
 
       .divider {
         display: none;
       }
 
       .social-section {
-        display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        gap: 24px;
-        width: 50%;
-        justify-content: space-between;
-
-        .socials {
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-
-          .social-links-header {
-            font-weight: bold;
-          }
-
-          .social-flex {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-
-            .icon-wrapper {
-              img {
-                width: 32px;
-                height: 32px;
-              }
-            }
-          }
-        }
-
-        .partner-section {
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-
-          .partner-header {
-            font-weight: bold;
-          }
-
-          .icon-wrapper {
-            display: flex;
-            justify-content: flex-start;
-            align-items: flex-start;
-
-            img {
-              width: 200px;
-              height: auto;
-            }
-          }
-        }
+        gap: 50px;
       }
-
     }
   }
 }
@@ -269,8 +205,12 @@ const socials: Ref<SocialLink[]> = ref([
 @media (min-width: 1200px) {
   .footer-outer-wrapper {
     margin-bottom: 34px;
-
-
+    .footer-wrapper {
+      gap: 180px;
+      .social-section {
+        gap: 180px;
+      }
+    }
   }
 }
 
