@@ -1,53 +1,39 @@
 <template>
   <div class="footer-outer-wrapper">
     <div class="footer-wrapper">
-      <div class="link-wrapper">
-        <div v-for="group in linkGroups"
-             :key="group.id"
-             class="link-section"
-        >
-          <div
-              @click="toggleGroup(group.id)"
-              class="group-heading-wrapper">
-            <p class="group-header">{{ group.groupHeader }}</p>
-            <div v-if="!hasTabletSize" class="icon-wrapper">
-              <img
-                  :class="{'rotate': group.isOpen}"
-                  :src="getImage('ic_chevron.png')" alt="chevron">
-            </div>
-          </div>
-          <div v-if="group.isOpen" class="links">
-            <router-link
-                v-for="(link, index) in group.links"
-                :key="index"
-                :to="{name: link.pathName}">
-              {{ link.linkText }}
-            </router-link>
-          </div>
+      <div class="link-section">
+        <p class="links-header">Schau mal hier vorbei</p>
+        <div class="link-flex">
+          <router-link
+              v-for="(link, index) in links"
+              :key="index"
+              :to="{name: link.pathName}">
+            <span class="link">
+            {{ link.linkText }}
+              </span>
+          </router-link>
         </div>
       </div>
       <div class="divider"></div>
-      <div class="bottom-section">
+      <div class="social-section">
         <div class="socials">
-          <p>Updates gewünscht?</p>
+          <p class="social-links-header">Folge meinen Abenteuern</p>
           <div class="social-flex">
-            <a class="social" href="https://www.instagram.com/">
+            <a
+                v-for="(social, index) in socials"
+                :key="index"
+                :href="social.href">
               <div class="icon-wrapper">
-                <img :src="getImage('ic_instagram.png')" alt="instagram">
-              </div>
-            </a>
-            <a class="social" href="https://www.facebook.com/">
-              <div class="icon-wrapper">
-                <img :src="getImage('ic_facebook.png')" alt="facebook">
+                <img :src="getImage(social.icon)" :alt="social.alt">
               </div>
             </a>
           </div>
         </div>
-        <div class="partner">
-          <p>...in Zusammenarbeit mit</p>
+        <div class="partner-section">
+          <p class="partner-header">Lohnt sich vorbeizuschauen</p>
           <a href="https://freieredner.at/?gad_source=1&gclid=CjwKCAjwx4O4BhAnEiwA42SbVA5gXL_Eio1Z7rLDB4IMg5dxgrwKyoazUWmLHzZ1vaP8qhdy7vQm4hoCAjUQAvD_BwE">
             <div class="icon-wrapper">
-              <img :src="getImage('freierednerlogo.png')" alt="freieredner">
+              <img :src="getImage('i_freier_redner.svg')" alt="freier redner">
             </div>
           </a>
         </div>
@@ -57,87 +43,45 @@
 </template>
 
 <script setup lang="ts">
-import {computed, onMounted, onUnmounted, ref} from "vue";
+import {type Ref, ref} from "vue";
+import type {Link, SocialLink} from "@/models/PropInterfaces";
 import {getImage} from "@/utils/ImageUtils";
 
-const windowWidth = ref(window.innerWidth)
-
-const hasTabletSize = computed(() => {
-  return windowWidth.value >= 740
-})
-
-function updateGroupOpenStatus() {
-  linkGroups.value.forEach((group) => {
-    group.isOpen = hasTabletSize.value;
-  });
-}
-
-
-function updateWindowSize() {
-  windowWidth.value = window.innerWidth
-  updateGroupOpenStatus();
-}
-
-onMounted(() => {
-  window.addEventListener('resize', updateWindowSize)
-  updateGroupOpenStatus();
-})
-
-onUnmounted(() => {
-  window.removeEventListener('resize', updateWindowSize)
-})
-
-const linkGroups = ref([
+const links: Ref<Link[]> = ref([
   {
-    id: 1,
-    groupHeader: 'Das Wichtigste',
-    links: [
-      {
-        pathName: 'about',
-        linkText: 'Über mich'
-      },
-      {
-        pathName: 'wedding',
-        linkText: 'Hochzeiten'
-      },
-      {
-        pathName: 'child-celebration',
-        linkText: 'Kinderwillkommensfest'
-      },
-      {
-        pathName: 'celebrations',
-        linkText: 'Lebensfeier / Trauerfeier'
-      }
-    ],
-    isOpen: false
+    linkText: 'Über mich',
+    pathName: 'about',
   },
   {
-    id: 2,
-    groupHeader: 'Mal reinschauen',
-    links: [
-      {
-        pathName: 'imprint',
-        linkText: 'Impressum'
-      },
-      {
-        pathName: 'data-protection',
-        linkText: 'Datenschutz'
-      }
-    ],
-    isOpen: false
+    linkText: 'Hochzeiten',
+    pathName: 'wedding',
+  },
+  {
+    linkText: 'Kinderwillkommensfest',
+    pathName: 'child-celebration',
+  },
+  {
+    linkText: 'Lebensfeier / Trauerfeier',
+    pathName: 'celebrations',
+  },
+  {
+    linkText: 'Impressum',
+    pathName: 'imprint',
   }
 ])
 
-function toggleGroup(groupId: number) {
-  if (hasTabletSize.value) return;
-  linkGroups.value.forEach((group) => {
-    if (group.id === groupId) {
-      group.isOpen = !group.isOpen;
-    } else {
-      group.isOpen = false;
-    }
-  });
-}
+const socials: Ref<SocialLink[]> = ref([
+  {
+    href: 'https://www.facebook.com/',
+    icon: 'ic_facebook.png',
+    alt: 'facebook'
+  },
+  {
+    href: 'https://www.instagram.com/',
+    icon: 'ic_instagram.png',
+    alt: 'instagram'
+  }
+])
 
 </script>
 
@@ -159,105 +103,74 @@ function toggleGroup(groupId: number) {
     background-color: var(--beige);
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 32px;
 
-    .link-wrapper {
+    .link-section {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 16px;
 
-      .link-section {
+      .links-header {
+        font-weight: bold;
+      }
+
+      .link-flex {
         display: flex;
         flex-direction: column;
         gap: 8px;
-
-        .group-heading-wrapper {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          cursor: pointer;
-
-          .group-header {
-            font-weight: 600;
-          }
-
-          .icon-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            img {
-              width: 20px;
-              height: 20px;
-              transition: transform 150ms ease-in-out;
-
-              &.rotate {
-                transform: rotate(180deg);
-              }
-            }
-          }
-        }
-
-        .links {
-          display: flex;
-          flex-direction: column;
-          gap: 8px;
-        }
       }
     }
 
     .divider {
       width: 100%;
       height: 1px;
-      background-color: var(--dark-green);
+      background-color: var(--darker-green);
     }
 
-    .bottom-section {
+    .social-section {
       display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
+      flex-direction: column;
+      gap: 24px;
 
       .socials {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 16px;
 
-        p {
-          font-weight: 600;
+        .social-links-header {
+          font-weight: bold;
         }
 
         .social-flex {
           display: flex;
           align-items: center;
-          gap: 10px;
+          gap: 16px;
 
-          .social {
-            .icon-wrapper {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-
-              img {
-                width: 32px;
-                height: 32px;
-              }
+          .icon-wrapper {
+            img {
+              width: 32px;
+              height: 32px;
             }
           }
         }
       }
 
-      .partner {
+      .partner-section {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 16px;
+
+        .partner-header {
+          font-weight: bold;
+        }
 
         .icon-wrapper {
           display: flex;
-          justify-content: center;
-          align-items: center;
+          justify-content: flex-start;
+          align-items: flex-start;
 
           img {
-            width: 180px;
+            width: 200px;
             height: auto;
           }
         }
@@ -271,13 +184,84 @@ function toggleGroup(groupId: number) {
     margin-bottom: 24px;
 
     .footer-wrapper {
-      padding: 24px 38px;
+      padding: 24px 50px;
+      flex-direction: row;
+      justify-content: space-between;
 
-      .link-wrapper {
-        flex-direction: row;
-        gap: 100px;
+      .link-section {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 50%;
 
+        .links-header {
+          font-weight: bold;
+        }
+
+        .link-flex {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
       }
+
+      .divider {
+        display: none;
+      }
+
+      .social-section {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 24px;
+        width: 50%;
+        justify-content: space-between;
+
+        .socials {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+
+          .social-links-header {
+            font-weight: bold;
+          }
+
+          .social-flex {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+
+            .icon-wrapper {
+              img {
+                width: 32px;
+                height: 32px;
+              }
+            }
+          }
+        }
+
+        .partner-section {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+
+          .partner-header {
+            font-weight: bold;
+          }
+
+          .icon-wrapper {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+
+            img {
+              width: 200px;
+              height: auto;
+            }
+          }
+        }
+      }
+
     }
   }
 }
@@ -286,9 +270,8 @@ function toggleGroup(groupId: number) {
   .footer-outer-wrapper {
     margin-bottom: 34px;
 
-    .footer-wrapper {
-      padding: 30px 44px;
-    }
+
   }
 }
+
 </style>

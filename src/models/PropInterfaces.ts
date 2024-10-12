@@ -3,6 +3,12 @@ export interface Link {
     pathName: string
 }
 
+export interface SocialLink {
+    href: string,
+    icon: string,
+    alt: string
+}
+
 export interface Service {
     image: string,
     alt: string,

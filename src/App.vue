@@ -12,7 +12,6 @@
 </template>
 
 <script setup lang="ts">
-
 import Footer from "@/components/Footer.vue";
 import ScrollButton from "@/components/ScrollButton.vue";
 import NavBar from "@/components/NavBar.vue";

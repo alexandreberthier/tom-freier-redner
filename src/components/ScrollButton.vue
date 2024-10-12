@@ -5,7 +5,7 @@
       class="scroll-button"
       @click="scrollToTop"
   >
-    <img :src="getImage('ic_chevron_white.png')" alt="chevron">
+    <img :src="getImage('ic_chevron_double.png')" alt="chevron">
   </div>
 </template>
 

@@ -12,6 +12,12 @@
     font-style: normal;
 }
 
+.icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 :root {
     --beige:#9fad88;
     --white: #ffffff;
@@ -33,17 +39,24 @@ h1, h2, h3, h4, h5 {
 p {
     margin: 0;
     font-family: Quicksand, sans-serif;
+    font-size: 18px;
 }
 
 a {
     text-decoration: none;
+    color: var(--darker-green)
+}
+
+.link {
+    text-decoration: none;
     color: var(--darker-green);
     position: relative;
+    font-family: Quicksand, sans-serif;
 
     &:after {
         content: '';
         position: absolute;
-        bottom: 0;
+        bottom: -2px;
         left: 0;
         width: 0;
         height: 2px;
