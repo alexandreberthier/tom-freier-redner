@@ -40,12 +40,12 @@ defineProps<{
   justify-content: space-between;
   gap: 16px;
   width: 300px;
+  height: 400px;
   box-sizing: border-box;
   padding: 20px 14px;
   border: 1px solid var(--dark-green);
   border-radius: 20px;
   cursor: pointer;
-  height: inherit;
 
   &:hover .image-wrapper img {
     transform: scale(1.1);
@@ -63,6 +63,7 @@ defineProps<{
     img {
       width: 100%;
       height: 100%;
+      object-position: 50% 30%;
       object-fit: cover;
       border-radius: 14px;
       transition: transform 400ms ease-in-out;
@@ -72,7 +73,9 @@ defineProps<{
   .text-wrapper {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
     gap: 8px;
+    min-height: 140px;
   }
 }
 

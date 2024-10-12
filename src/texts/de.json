@@ -4,9 +4,28 @@
   "contact": "Kontakt",
   "moreQuestions": "Noch Fragen?",
   "thereForYou": "Ich bin gerne für dich da – melde dich bei mir!",
+  "lookHere": "Schau mal hier vorbei",
+  "followMyAdventures": "Folge meinen Abenteuern",
+  "isWorthIt": "Lohnt sich",
   "quote1": "Würdevoll aber nicht steif, humorvoll, aber nicht lächerlich.",
   "quote2": "Mir ist selbst nicht gerne langweilig, darum wird es eure Zeremonie auch nicht.",
   "quote3": "Ihr müsst nur kommen, um den Rest kümmere ich mich gerne.",
+  "contactForm": "Kontaktformular",
+  "firstName": "Vorname",
+  "lastName": "Nachname",
+  "email": "E-Mail",
+  "phoneNumber": "Telefonnummer",
+  "yourMessage": "Deine Nachricht",
+  "sendButton": "Senden",
+  "successMessage": "Ihre Nachricht wurde erfolgreich gesendet.",
+  "errorMessage": "Es gab einen Fehler beim Senden der Nachricht.",
+  "aboutMe": "Über mich",
+  "faqsHeader": "FAQs",
+  "questions": "Fragen?",
+  "contactHeader": "Schreib mir eine Nachricht!",
+  "contactSubText": "Egal ob per E-Mail, Telefon oder über das Kontaktformular – ich freue mich, von Dir zu hören und Deine Fragen zu beantworten.",
+
+
   "homeHeader": "Gemeinsam gestalten wir unvergessliche Momente",
   "homeSubText": "Egal ob Hochzeit, Lebensfeier oder ein ganz besonderer Anlass – mit einfühlsamen Worten und deiner Geschichte machen wir deine Feier zu einem einzigartigen Erlebnis. Lass uns gemeinsam Erinnerungen schaffen, die im Herzen bleiben.",
   "homeBannerHeader": "Deine einzigartige Zeremonie – ganz nach deinen Wünschen",
@@ -94,5 +113,7 @@
   "childCelebrationFaqQuestion4": "Wie lange dauert eine Lebensfeier oder Trauerfeier?",
   "childCelebrationFaqAnswer4": "In der Regel dauert eine Feier etwa 30 bis 60 Minuten, je nachdem, wie viele Beiträge und Rituale integriert werden. Die Dauer kann flexibel an die Wünsche der Familie angepasst werden.",
   "childCelebrationFaqQuestion5": "In welcher Umgebung kann eine Lebens- oder Trauerfeier stattfinden?",
-  "childCelebrationFaqAnswer5": "Die Feier kann an jedem Ort stattfinden, der für die Familie und die verstorbene Person von Bedeutung ist. Ob im Freien, in einer Trauerhalle oder an einem besonderen Ort – ich bin flexibel und unterstütze euch bei der Auswahl des passenden Rahmens."
+  "childCelebrationFaqAnswer5": "Die Feier kann an jedem Ort stattfinden, der für die Familie und die verstorbene Person von Bedeutung ist. Ob im Freien, in einer Trauerhalle oder an einem besonderen Ort – ich bin flexibel und unterstütze euch bei der Auswahl des passenden Rahmens.",
+
+  "imprintHeader": "Impressum"
 }

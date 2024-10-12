@@ -2,7 +2,7 @@
   <div class="footer-outer-wrapper">
     <div class="footer-wrapper">
       <div class="link-section">
-        <p class="links-header">Schau mal hier vorbei</p>
+        <p class="links-header">{{ translations.lookHere }}</p>
         <div class="link-flex">
           <router-link
               v-for="(link, index) in links"
@@ -17,7 +17,7 @@
       <div class="divider"></div>
       <div class="social-section">
         <div class="socials">
-          <p class="social-links-header">Folge meinen Abenteuern</p>
+          <p class="social-links-header">{{ translations.followMyAdventures }}</p>
           <div class="social-flex">
             <a
                 v-for="(social, index) in socials"
@@ -30,7 +30,7 @@
           </div>
         </div>
         <div class="partner-section">
-          <p class="partner-header">Lohnt sich vorbeizuschauen</p>
+          <p class="partner-header">{{ translations.isWorthIt }}</p>
           <a href="https://freieredner.at/?gad_source=1&gclid=CjwKCAjwx4O4BhAnEiwA42SbVA5gXL_Eio1Z7rLDB4IMg5dxgrwKyoazUWmLHzZ1vaP8qhdy7vQm4hoCAjUQAvD_BwE">
             <div class="icon-wrapper">
               <img :src="getImage('i_freier_redner.svg')" alt="freier redner">
@@ -43,29 +43,33 @@
 </template>
 
 <script setup lang="ts">
-import {type Ref, ref} from "vue";
+import {computed, type Ref, ref} from "vue";
 import type {Link, SocialLink} from "@/models/PropInterfaces";
 import {getImage} from "@/utils/ImageUtils";
+import {useCentralStore} from "@/stores/central";
 
-const links: Ref<Link[]> = ref([
+const centralStore = useCentralStore()
+const translations = computed(() => centralStore.translations);
+
+const links: Ref<Link[]> = computed(() => [
   {
-    linkText: 'Über mich',
+    linkText: translations.value.aboutHeader,
     pathName: 'about',
   },
   {
-    linkText: 'Hochzeiten',
+    linkText: translations.value.weddingHeader,
     pathName: 'wedding',
   },
   {
-    linkText: 'Kinderwillkommensfest',
+    linkText: translations.value.childCelebrationHeader,
     pathName: 'child-celebration',
   },
   {
-    linkText: 'Lebensfeier / Trauerfeier',
+    linkText: translations.value.funeralHeader,
     pathName: 'celebrations',
   },
   {
-    linkText: 'Impressum',
+    linkText: translations.value.imprintHeader,
     pathName: 'imprint',
   }
 ])
@@ -205,8 +209,10 @@ const socials: Ref<SocialLink[]> = ref([
 @media (min-width: 1200px) {
   .footer-outer-wrapper {
     margin-bottom: 34px;
+
     .footer-wrapper {
       gap: 180px;
+
       .social-section {
         gap: 180px;
       }

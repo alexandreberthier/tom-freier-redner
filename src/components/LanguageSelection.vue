@@ -2,7 +2,8 @@
   <div class="language-selection">
     <div class="selected-option" @click="toggleLanguageOptions">
       <div class="icon-wrapper">
-        <img :src="getImage(currentLanguage === 'de' ? 'ic_german.png' : 'ic_english.png')" :alt="currentLanguage === 'de' ? 'Deutsch' : 'English'">
+        <img :src="getImage(currentLanguage === 'de' ? 'ic_german.png' : 'ic_english.png')"
+             :alt="currentLanguage === 'de' ? 'Deutsch' : 'English'">
       </div>
       <p>{{ currentLanguage.toUpperCase() }}</p>
     </div>
@@ -13,7 +14,8 @@
           :key="index"
           @click="changeLanguage(lang)">
         <div class="icon-wrapper">
-          <img :src="getImage(lang === 'de' ? 'ic_german.png' : 'ic_english.png')" :alt="lang === 'de' ? 'Deutsch' : 'English'">
+          <img :src="getImage(lang === 'de' ? 'ic_german.png' : 'ic_english.png')"
+               :alt="lang === 'de' ? 'Deutsch' : 'English'">
         </div>
         <p>{{ lang.toUpperCase() }}</p>
       </div>
@@ -58,6 +60,7 @@ function changeLanguage(lang: 'de' | 'en') {
   background-color: var(--white);
   border-radius: 4px;
   box-sizing: border-box;
+
   img {
     width: 32px;
     height: 32px;
@@ -74,6 +77,7 @@ function changeLanguage(lang: 'de' | 'en') {
     box-sizing: border-box;
     padding: 0 6px;
   }
+
   .language-options {
     position: absolute;
     top: 105%;
@@ -87,14 +91,7 @@ function changeLanguage(lang: 'de' | 'en') {
     width: 100%;
     align-items: flex-start;
   }
-
-  .option:hover {
-    background-color: #f0f0f0;
-  }
 }
-
-
-
 
 
 </style>

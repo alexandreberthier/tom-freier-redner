@@ -37,7 +37,7 @@
           :has-link="true"
           path-name="home"
           hash="#contact"
-          :button-text="centralStore.translations.letsSpeak"
+          :button-text="translations.letsSpeak"
       />
     </div>
   </div>
@@ -54,6 +54,7 @@ import {useCentralStore} from "@/stores/central";
 import LanguageSelection from "@/components/LanguageSelection.vue";
 
 const centralStore = useCentralStore()
+const translations = computed(() => centralStore.translations);
 
 const menuOpen: Ref<boolean> = ref(false)
 
@@ -94,19 +95,19 @@ onUnmounted(() => {
 
 const links: ComputedRef<Link[]> = computed(() => [
   {
-    linkText: centralStore.translations?.aboutHeader,
+    linkText: translations.value.aboutHeader,
     pathName: 'about'
   },
   {
-    linkText: centralStore.translations?.weddingHeader,
+    linkText: translations.value.weddingHeader,
     pathName: 'wedding'
   },
   {
-    linkText: centralStore.translations?.childCelebrationHeader,
+    linkText: translations.value.childCelebrationHeader,
     pathName: 'child-celebration'
   },
   {
-    linkText: centralStore.translations?.funeralHeader,
+    linkText: translations.value.funeralHeader,
     pathName: 'celebrations'
   }
 ])
