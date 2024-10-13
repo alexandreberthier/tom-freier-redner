@@ -213,8 +213,30 @@ const socials: Ref<SocialLink[]> = ref([
     .footer-wrapper {
       gap: 180px;
 
+      .link {
+        font-size: 18px;
+      }
+
+      .link-section {
+        .links-header {
+          font-size: 20px;
+        }
+      }
+
       .social-section {
         gap: 180px;
+
+        .socials {
+          .social-links-header {
+            font-size: 20px;
+          }
+        }
+
+        .partner-section {
+          .partner-header {
+            font-size: 20px;
+          }
+        }
       }
     }
   }
