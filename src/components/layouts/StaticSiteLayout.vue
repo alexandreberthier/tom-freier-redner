@@ -114,7 +114,7 @@ defineProps<{
     width: 320px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 32px;
     align-items: center;
     text-align: center;
 
@@ -126,6 +126,7 @@ defineProps<{
     }
 
     .text {
+      width: 90%;
       font-size: 20px;
       font-style: italic;
       font-family: Bitter, sans-serif;

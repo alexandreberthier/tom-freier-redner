@@ -5,7 +5,7 @@
      :image1="'img_tom1-min.jpeg'"
      :image2="'img_tom4-min.jpeg'"
      :main-text-header="translations.aboutMainTextHeader"
-     :mainText1="translations.aboutMainText2"
+     :mainText1="translations.aboutMainText1"
      :mainText2="translations.aboutMainText2"
      :faqs="faqs"
      :quotes="quotes"

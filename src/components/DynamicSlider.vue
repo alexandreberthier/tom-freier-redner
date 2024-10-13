@@ -6,14 +6,11 @@
           <slot></slot>
         </div>
       </div>
-
-      <div v-if="props.arrowNavigation" class="arrow-navigation">
-        <div role="button" @click="prevSlide" class="icon-wrapper">
-          <img :src="getImage('ic_chevron_left.png')" alt="links">
-        </div>
-        <div role="button" @click="nextSlide" class="icon-wrapper">
-          <img :src="getImage('ic_chevron_right.png')" alt="rechts">
-        </div>
+      <div  v-if="props.arrowNavigation" role="button" @click="prevSlide" class="icon-wrapper arrow-left">
+        <img :src="getImage('ic_chevron_left.png')" alt="links">
+      </div>
+      <div  v-if="props.arrowNavigation" role="button" @click="nextSlide" class="icon-wrapper arrow-right">
+        <img :src="getImage('ic_chevron_right.png')" alt="rechts">
       </div>
 
       <div v-if="!props.arrowNavigation && showNavigation" class="navigation-dot-wrapper">
@@ -56,15 +53,34 @@ let observer: MutationObserver | null = null;
 let autoRotateInterval: number | null = null;
 
 function prevSlide() {
+  stopAutoRotate();
   if (activeSlideIndex.value > 0) {
     goToSlide(activeSlideIndex.value - 1);
   }
+  restartAutoRotate();
 }
 
 function nextSlide() {
+  stopAutoRotate();
   if (activeSlideIndex.value < slideCount.value - visibleSlideCount.value) {
     goToSlide(activeSlideIndex.value + 1);
   }
+  restartAutoRotate();
+}
+
+function restartAutoRotate() {
+  if (props.autoRotate) {
+    setTimeout(() => {
+      startAutoRotate();
+    }, 5000);
+  }
+}
+
+function handleScroll() {
+  stopAutoRotate();
+  const scrollLeft = slidesWrapper.value?.scrollLeft ?? 0;
+  activeSlideIndex.value = Math.round(scrollLeft / (singleSlideWidth.value + gapSize));
+  restartAutoRotate();
 }
 
 
@@ -75,7 +91,7 @@ const showNavigation: ComputedRef<boolean> = computed(() => {
 const navigationDotsCount: ComputedRef<number> = computed(() => {
   const dotsCount = slideCount.value - visibleSlideCount.value + 1;
   return dotsCount > 0 ? dotsCount : 0;
-});
+})
 
 function goToSlide(index: number) {
   if (slidesWrapper.value && sliderWidth.value) {
@@ -91,29 +107,23 @@ function goToSlide(index: number) {
 }
 
 
-function handleScroll() {
-  const scrollLeft = slidesWrapper.value?.scrollLeft ?? 0;
-  activeSlideIndex.value = Math.round(scrollLeft / (singleSlideWidth.value + gapSize));
-}
-
 function updateSliderDimensions() {
   nextTick(() => {
-    if (sliderWrapper.value && slidesWrapper.value) {
+    if (sliderWrapper.value && slidesWrapper.value && slidesWrapper.value.children.length > 0) {
       slideCount.value = Array.from(slidesWrapper.value.children).length;
-      if (slideCount.value > 0) {
-        singleSlideWidth.value = slidesWrapper.value.children[0].clientWidth;
-        singleSlideHeight.value = slidesWrapper.value.children[0].clientHeight;
-        combinedSlidesWidth.value =
-            singleSlideWidth.value * slideCount.value + gapSize * (slideCount.value - 1);
-        sliderWidth.value = sliderWrapper.value.clientWidth;
-        visibleSlideCount.value = Math.floor(
-            (sliderWidth.value + gapSize) / (singleSlideWidth.value + gapSize)
-        );
-        sliderWrapper.value.style.minHeight = `${singleSlideHeight.value}px`;
-      }
+      singleSlideWidth.value = slidesWrapper.value.children[0].clientWidth;
+      singleSlideHeight.value = slidesWrapper.value.children[0].clientHeight;
+      combinedSlidesWidth.value =
+          singleSlideWidth.value * slideCount.value + gapSize * (slideCount.value - 1);
+      sliderWidth.value = sliderWrapper.value.clientWidth;
+      visibleSlideCount.value = Math.floor(
+          (sliderWidth.value + gapSize) / (singleSlideWidth.value + gapSize)
+      );
+      sliderWrapper.value.style.minHeight = `${singleSlideHeight.value}px`;
     }
   });
 }
+
 
 function observeMutations() {
   if (slidesWrapper.value) {
@@ -126,6 +136,7 @@ function observeMutations() {
 
 function startAutoRotate() {
   if (props.autoRotate) {
+    stopAutoRotate();
     autoRotateInterval = setInterval(() => {
       const nextSlideIndex = (activeSlideIndex.value + 1) % slideCount.value;
       goToSlide(nextSlideIndex);
@@ -140,6 +151,8 @@ function stopAutoRotate() {
   }
 }
 
+
+
 onMounted(() => {
   nextTick(() => {
     updateSliderDimensions();
@@ -152,6 +165,7 @@ onMounted(() => {
   });
 });
 
+
 onUnmounted(() => {
   window.removeEventListener('resize', updateSliderDimensions);
   stopAutoRotate();
@@ -159,6 +173,7 @@ onUnmounted(() => {
     observer.disconnect();
   }
 });
+
 
 watch(() => props.autoRotate, (newVal) => {
   if (newVal) {
@@ -182,6 +197,20 @@ watch(() => props.autoRotate, (newVal) => {
   display: flex;
   flex-direction: column;
   gap: 30px;
+}
+
+.arrow-left {
+  position: absolute;
+  left: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.arrow-right{
+  position: absolute;
+  right: -40px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .slider-wrapper {
@@ -241,19 +270,14 @@ watch(() => props.autoRotate, (newVal) => {
   background-color: var(--dark-green)
 }
 
-.arrow-navigation {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  position: absolute;
-  top: 40%;
-  transform: translateY(-50%);
 
-}
+
 
 .icon-wrapper {
   z-index: 5;
   cursor: pointer;
+  width: 80px;
+  height: 80px;
 
   img {
     width: 20px;
