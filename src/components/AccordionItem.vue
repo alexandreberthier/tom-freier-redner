@@ -34,7 +34,7 @@ defineProps<{
   gap: 8px;
   border: 1px solid var(--beige);
   box-sizing: border-box;
-  padding: 4px 8px;
+  padding: 6px 12px;
   border-radius: 4px;
 
   .question {
@@ -42,6 +42,8 @@ defineProps<{
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
+    box-sizing: border-box;
+    padding: 6px 0;
 
     p {
       max-width: 90%;

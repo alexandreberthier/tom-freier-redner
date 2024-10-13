@@ -7,17 +7,15 @@
         </div>
       </div>
 
-      <!-- Arrow Navigation -->
       <div v-if="props.arrowNavigation" class="arrow-navigation">
-        <button @click="prevSlide" class="arrow left-arrow">
-          <i class="chevron left"></i>
-        </button>
-        <button @click="nextSlide" class="arrow right-arrow">
-          <i class="chevron right"></i>
-        </button>
+        <div role="button"  @click="prevSlide" class="icon-wrapper">
+          <img :src="getImage('ic_chevron_left.png')" alt="links">
+        </div>
+        <div role="button"  @click="nextSlide" class="icon-wrapper">
+          <img :src="getImage('ic_chevron_right.png')" alt="rechts">
+        </div>
       </div>
 
-      <!-- Dot Navigation -->
       <div v-if="!props.arrowNavigation && showNavigation" class="navigation-dot-wrapper">
         <div v-for="(dot, index) in Math.min(slideCount, navigationDotsCount)" :key="index" class="dot"
              :class="{ active: index === activeSlideIndex }" @click="goToSlide(index)"></div>
@@ -31,6 +29,7 @@
 
 import {computed, type ComputedRef, nextTick, onMounted, onUnmounted, ref, watch, type Ref} from "vue";
 import {defineProps} from "vue";
+import {getImage} from "@/utils/ImageUtils";
 
 interface Props {
   autoRotate?: boolean,
@@ -208,7 +207,7 @@ watch(() => props.autoRotate, (newVal) => {
 
 .slides-wrapper > * {
   flex: 0 0 auto;
-  scroll-snap-align: center; /* Stellt sicher, dass das aktuelle Slide in der Mitte bleibt */
+  scroll-snap-align: center;
 }
 
 .slides-wrapper::-webkit-scrollbar {
@@ -245,35 +244,20 @@ watch(() => props.autoRotate, (newVal) => {
   justify-content: space-between;
   width: 100%;
   position: absolute;
-  top: 50%;
+  top: 40%;
   transform: translateY(-50%);
-  pointer-events: none;
+
 }
 
-.arrow {
-  background: none;
-  border: none;
-  pointer-events: all;
+.icon-wrapper {
+  z-index: 5;
   cursor: pointer;
-}
 
-.chevron {
-  border: solid var(--dark-green);
-  border-width: 0 4px 4px 0;
-  display: inline-block;
-  padding: 8px;
+  img {
+    width: 20px;
+    height: 20px;
+  }
 }
-
-.left {
-  transform: rotate(135deg);
-  -webkit-transform: rotate(135deg);
-}
-
-.right {
-  transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
-}
-
 
 
 @media (min-width: 740px) {

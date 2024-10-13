@@ -1,28 +1,32 @@
 <template>
   <div class="content-wrapper">
     <section class="header-section">
-      <h1>Über mich</h1>
-      <p class="sub-header-text">
-        Schön, dass du hier bist. Ich freue mich, dich bei der Gestaltung einer unvergesslichen Zeremonie zu begleiten –
-        ganz nach deinen Wünschen und Vorstellungen.
-      </p>
+      <h1>{{header}}</h1>
+      <p class="sub-header-text">{{subHeaderText}}</p>
     </section>
 
     <section class="main-section">
-        <div class="image-wrapper img1">
-          <img :src="getImage('img_tom1-min.jpeg')" alt="image">
+      <div class="top-wrapper">
+        <div class="image-wrapper">
+          <img :src="getImage(image1)" alt="image">
         </div>
-        <div class="text-wrapper">
-          <h3>{{ translations.aboutMe }}</h3>
-          <p class="main-text" v-html="translations.aboutMainText"></p>
+        <div class="heading-text">
+          <h2>{{ mainTextHeader }}</h2>
+          <p class="main-text1" v-html="mainText1"></p>
         </div>
-        <div class="image-wrapper img2">
-          <img :src="getImage('img_tom4-min.jpeg')" alt="image">
+      </div>
+      <div class="bottom-wrapper">
+        <p class="main-text2" v-html="mainText2"></p>
+        <div class="image-wrapper">
+          <img :src="getImage(image2)" alt="image">
         </div>
+      </div>
     </section>
 
     <section class="faq-section">
-      <DynamicAccordion :accordion-items="faqs"/>
+      <DynamicAccordion
+          :accordion-items="faqs"
+      />
     </section>
 
     <section class="quote-section">
@@ -42,22 +46,7 @@
       </DynamicSlider>
     </section>
 
-    <section class="bottom-section">
-      <div class="image-wrapper">
-        <img :src="getImage('img_tom1-min.jpeg')" alt="image">
-      </div>
-      <div class="skill-flex">
-        <div
-            v-for="(skill, index) in skills"
-            :key="index"
-            class="skill">
-          <div class="icon-wrapper">
-            <img :src="getImage(skill.image)" :alt="skill.alt">
-          </div>
-          <p>{{ skill.text }}</p>
-        </div>
-      </div>
-    </section>
+    <slot></slot>
   </div>
 
 
@@ -65,83 +54,25 @@
 
 <script setup lang="ts">
 import {getImage} from "@/utils/ImageUtils";
-import {useCentralStore} from "@/stores/central";
-import {computed, type ComputedRef, ref} from "vue";
 import DynamicAccordion from "@/components/DynamicAccordion.vue";
 import DynamicSlider from "@/components/DynamicSlider.vue";
-import type {Quote} from "@/models/PropInterfaces";
+import type {FaqItem, Quote} from "@/models/PropInterfaces";
 
-const centerStore = useCentralStore()
+defineProps<{
+  header:string,
+  subHeaderText: string
+  image1: string,
+  image2: string,
+  mainTextHeader:string
+  mainText1:string,
+  mainText2:string
+  faqs: FaqItem[]
+  quotes: Quote[]
+}>()
 
-const translations = computed(() => {
-  return centerStore.translations
-})
 
-const quotes: ComputedRef<Quote[]> = computed(() => [
-  {
-    text: translations.value.quote1,
-    author: 'Tom'
-  },
-  {
-    text: translations.value.quote2,
-    author: 'Tom'
-  },
-  {
-    text: translations.value.quote3,
-    author: 'Tom'
-  }
-])
 
-const faqs = computed(() => [
-  {
-    id: 1,
-    question: translations.value.homeFaqQuestion1,
-    answer: translations.value.homeFaqAnswer1
-  },
-  {
-    id: 2,
-    question: translations.value.homeFaqQuestion2,
-    answer: translations.value.homeFaqAnswer2
-  },
-  {
-    id: 3,
-    question: translations.value.homeFaqQuestion3,
-    answer: translations.value.homeFaqAnswer3
-  },
-  {
-    id: 4,
-    question: translations.value.homeFaqQuestion4,
-    answer: translations.value.homeFaqAnswer4
-  },
-  {
-    id: 5,
-    question: translations.value.homeFaqQuestion5,
-    answer: translations.value.homeFaqAnswer5
-  }
-])
 
-const skills = computed(() => [
-  {
-    image: 'ic_language.png',
-    alt: 'hut',
-    text: translations.value.aboutSkill1
-  },
-  {
-    image: 'ic_microphone.png',
-    alt: 'mikrofon',
-    text: translations.value.aboutSkill2
-  },
-  {
-    image: 'ic_palette.png',
-    alt: 'palette',
-    text: translations.value.aboutSkill3
-  },
-  {
-    image: 'ic_graduation.png',
-    alt: 'ausbildung',
-    text: translations.value.aboutSkill4
-  }
-])
 
 </script>
 
@@ -153,26 +84,27 @@ const skills = computed(() => [
 }
 
 .main-section {
-  display: grid;
-  grid-row-gap: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .top-wrapper, .bottom-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .main-text1, .main-text2, .heading-text {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
 
   .image-wrapper {
     img {
       width: 100%;
       height: 100%;
       border-radius: 14px;
-    }
-  }
-
-  .text-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-
-    .main-text {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
     }
   }
 }
@@ -205,32 +137,6 @@ const skills = computed(() => [
   }
 }
 
-.bottom-section {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-
-  .image-wrapper {
-    img {
-      width: 100%;
-      height: 100%;
-      border-radius: 14px;
-    }
-  }
-
-  .skill-flex {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    align-items: flex-start;
-
-    .skill {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-  }
-}
 
 @media (min-width: 740px) {
   .quote-section {
@@ -268,43 +174,75 @@ const skills = computed(() => [
   }
 
   .main-section {
-    display: grid;
-    grid-template-columns: repeat(2, 50%);
-    grid-template-rows: repeat(2, auto);
-    grid-column-gap: 36px;
-    grid-row-gap: 36px;
-    grid-template-areas:
-  "img1 text"
-    "img2 text"
-  ;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
 
-    .image-wrapper {
-      img {
-        width: 100%;
-        height: 100%;
-        border-radius: 14px;
-      }
-
-      .img1 {
-        grid-area: img1;
-      }
-
-      .img2 {
-        grid-area: img2;
-      }
+    .top-wrapper, .bottom-wrapper {
+      display: flex;
+      flex-direction: row;
+      gap: 32px;
+      width: 100%;
+      justify-content: center;
     }
 
-    .text-wrapper {
-      grid-area: text;
+    h3 {
+      width: 415px;
+    }
+
+    .main-text1, .main-text2 {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 415px;
+    }
+
+    .image-wrapper {
+      max-height: 480px;
+      width: 415px;
+      justify-content: flex-start;
+
+      img {
+        object-fit: cover;
+      }
     }
   }
 
-     .quote-section {
-       .quote {
-         width: 860px;
-       }
-     }
+  .quote-section {
+    .quote {
+      width: 860px;
+    }
+  }
+}
 
+@media (min-width: 1920px) {
+  .main-section {
+
+    h3 {
+      width: 600px;
+    }
+
+    .main-text1, .main-text2 {
+      width: 600px;
+    }
+
+    .image-wrapper {
+      width: 600px;
+    }
+  }
+
+  .quote-section {
+    .quote {
+      width: 1260px;
+      .text {
+        font-size: 26px;
+      }
+
+      .author {
+        font-size: 20px;
+      }
+    }
+  }
 }
 
 

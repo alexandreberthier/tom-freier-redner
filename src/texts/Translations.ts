@@ -32,7 +32,8 @@ export interface Translations {
     aboutHeader: string;
     aboutSubText: string;
     aboutMainTextHeader: string;
-    aboutMainText: string;
+    aboutMainText1: string;
+    aboutMainText2: string;
     aboutBannerHeader: string;
     aboutBannerText: string;
     aboutFaqQuestion1: string;
