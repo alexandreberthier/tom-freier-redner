@@ -31,7 +31,7 @@
 
     <section class="quote-section">
       <DynamicSlider
-          :auto-rotate="false"
+          :auto-rotate="true"
           :arrow-navigation="true">
         <div
             v-for="(quote, index) in quotes"
@@ -146,7 +146,7 @@ defineProps<{
       .text {
         font-size: 24px;
         font-style: italic;
-        font-family: Bitter, sans-serif;
+        font-family: Playfair, sans-serif;
       }
 
       .author {

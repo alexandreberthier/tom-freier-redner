@@ -40,7 +40,7 @@ defineProps<{
   justify-content: space-between;
   gap: 16px;
   width: 300px;
-  height: 400px;
+  height: 500px;
   box-sizing: border-box;
   padding: 20px 14px;
   border: 1px solid var(--dark-green);

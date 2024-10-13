@@ -36,12 +36,13 @@ const linkOptions = computed(() =>
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 170px;
+  min-width: 170px;
   padding: 5px 10px;
   box-sizing: border-box;
   border-radius: 24px;
   cursor: pointer;
   transition: all 150ms ease;
+  min-height: 50px;
 
   p {
     font-weight: 600;

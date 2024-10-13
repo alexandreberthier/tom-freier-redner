@@ -338,8 +338,14 @@ onMounted(() => {
 
   .button-section {
     display: flex;
-    flex-direction: row;
-    gap: 8px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+
+    & >*{
+      width: 100%;
+    }
   }
 }
 
@@ -469,13 +475,26 @@ onMounted(() => {
       gap: 20px;
     }
 
-    .button-wrapper {
-      align-self: center;
-    }
   }
 }
 
 @media (min-width: 740px) {
+
+  .hero {
+
+    .button-section {
+      display: flex;
+      flex-direction: row;
+      align-items: start;
+      justify-content: flex-start;
+      gap: 16px;
+
+      & >*{
+        width: 170px;
+      }
+    }
+  }
+
   .hero-images {
     display: flex;
     flex-direction: row;

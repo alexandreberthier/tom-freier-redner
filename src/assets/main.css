@@ -12,6 +12,18 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: Playfair;
+    src: url("../assets/fonts/PlayfairDisplay-Regular.ttf") format("truetype");
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Gowun;
+    src: url("../assets/fonts/GowunBatang-Regular.ttf") format("truetype");
+    font-style: normal;
+}
+
 .icon-wrapper {
     display: flex;
     justify-content: center;
@@ -39,12 +51,12 @@ html, body {
 
 h1, h2, h3, h4, h5 {
     margin: 0;
-    font-family: Bitter, sans-serif;
+    font-family: Playfair, sans-serif;
 }
 
 p {
     margin: 0;
-    font-family: Quicksand, sans-serif;
+    font-family: Gowun, sans-serif;
     font-size: 18px;
 }
 
@@ -59,7 +71,7 @@ h2 {
 }
 
 label {
-    font-family: Quicksand, sans-serif;
+    font-family: Gowun, sans-serif;
 }
 
 a {
@@ -77,7 +89,7 @@ a {
     text-decoration: none;
     color: var(--darker-green);
     position: relative;
-    font-family: Quicksand, sans-serif;
+    font-family:Gowun, sans-serif;
 
     &:after {
         content: '';

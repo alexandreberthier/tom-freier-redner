@@ -8,10 +8,10 @@
       </div>
 
       <div v-if="props.arrowNavigation" class="arrow-navigation">
-        <div role="button"  @click="prevSlide" class="icon-wrapper">
+        <div role="button" @click="prevSlide" class="icon-wrapper">
           <img :src="getImage('ic_chevron_left.png')" alt="links">
         </div>
-        <div role="button"  @click="nextSlide" class="icon-wrapper">
+        <div role="button" @click="nextSlide" class="icon-wrapper">
           <img :src="getImage('ic_chevron_right.png')" alt="rechts">
         </div>
       </div>
@@ -180,6 +180,8 @@ watch(() => props.autoRotate, (newVal) => {
 .outer {
   position: relative;
   display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
 .slider-wrapper {
