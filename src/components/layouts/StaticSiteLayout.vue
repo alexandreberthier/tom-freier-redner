@@ -9,16 +9,16 @@
     </section>
 
     <section class="main-section">
-      <div class="image-wrapper img1">
-        <img :src="getImage('img_tom1-min.jpeg')" alt="image">
-      </div>
-      <div class="text-wrapper">
-        <h3>Einfach Ich</h3>
-        <p class="main-text" v-html="translations.aboutMainText"></p>
-      </div>
-      <div class="image-wrapper img1">
-        <img :src="getImage('img_tom4-min.jpeg')" alt="image">
-      </div>
+        <div class="image-wrapper img1">
+          <img :src="getImage('img_tom1-min.jpeg')" alt="image">
+        </div>
+        <div class="text-wrapper">
+          <h3>{{ translations.aboutMe }}</h3>
+          <p class="main-text" v-html="translations.aboutMainText"></p>
+        </div>
+        <div class="image-wrapper img2">
+          <img :src="getImage('img_tom4-min.jpeg')" alt="image">
+        </div>
     </section>
 
     <section class="faq-section">
@@ -26,7 +26,9 @@
     </section>
 
     <section class="quote-section">
-      <DynamicSlider>
+      <DynamicSlider
+          :auto-rotate="false"
+          :arrow-navigation="true">
         <div
             v-for="(quote, index) in quotes"
             :key="index"
@@ -35,26 +37,26 @@
             <img :src="getImage('ic_quote.png')" alt="image">
           </div>
           <p class="text">{{ quote.text }}</p>
-          <p class="author"> - {{quote.author}}</p>
+          <p class="author"> - {{ quote.author }}</p>
         </div>
       </DynamicSlider>
     </section>
 
     <section class="bottom-section">
-        <div class="image-wrapper">
-          <img :src="getImage('img_tom1-min.jpeg')" alt="image">
-        </div>
-        <div class="skill-flex">
-          <div
-              v-for="(skill, index) in skills"
-              :key="index"
-              class="skill">
-            <div class="icon-wrapper">
-              <img :src="getImage(skill.image)" :alt="skill.alt">
-            </div>
-            <p>{{ skill.text }}</p>
+      <div class="image-wrapper">
+        <img :src="getImage('img_tom1-min.jpeg')" alt="image">
+      </div>
+      <div class="skill-flex">
+        <div
+            v-for="(skill, index) in skills"
+            :key="index"
+            class="skill">
+          <div class="icon-wrapper">
+            <img :src="getImage(skill.image)" :alt="skill.alt">
           </div>
+          <p>{{ skill.text }}</p>
         </div>
+      </div>
     </section>
   </div>
 
@@ -75,7 +77,7 @@ const translations = computed(() => {
   return centerStore.translations
 })
 
-const quotes: ComputedRef<Quote[]>  = computed(() => [
+const quotes: ComputedRef<Quote[]> = computed(() => [
   {
     text: translations.value.quote1,
     author: 'Tom'
@@ -118,7 +120,7 @@ const faqs = computed(() => [
   }
 ])
 
-const skills = computed(()=> [
+const skills = computed(() => [
   {
     image: 'ic_language.png',
     alt: 'hut',
@@ -177,7 +179,7 @@ const skills = computed(()=> [
 
 .quote-section {
   .quote {
-    width: 100%;
+    width: 320px;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -190,6 +192,7 @@ const skills = computed(()=> [
         height: 50px;
       }
     }
+
     .text {
       font-size: 20px;
       font-style: italic;
@@ -229,6 +232,80 @@ const skills = computed(()=> [
   }
 }
 
+@media (min-width: 740px) {
+  .quote-section {
+    .quote {
+      width: 620px;
+
+      .text {
+        font-size: 24px;
+        font-style: italic;
+        font-family: Bitter, sans-serif;
+      }
+
+      .author {
+        font-size: 18px;
+      }
+    }
+  }
+
+}
+
+@media (min-width: 1200px) {
+  .header-section {
+    display: flex;
+    flex-direction: row;
+    gap: unset;
+    justify-content: space-between;
+
+    h1 {
+      width: 50%;
+    }
+
+    .sub-header-text {
+      width: 50%;
+    }
+  }
+
+  .main-section {
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    grid-template-rows: repeat(2, auto);
+    grid-column-gap: 36px;
+    grid-row-gap: 36px;
+    grid-template-areas:
+  "img1 text"
+    "img2 text"
+  ;
+
+    .image-wrapper {
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 14px;
+      }
+
+      .img1 {
+        grid-area: img1;
+      }
+
+      .img2 {
+        grid-area: img2;
+      }
+    }
+
+    .text-wrapper {
+      grid-area: text;
+    }
+  }
+
+     .quote-section {
+       .quote {
+         width: 860px;
+       }
+     }
+
+}
 
 
 </style>
