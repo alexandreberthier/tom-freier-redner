@@ -61,7 +61,6 @@
   <div class="content-wrapper">
     <section class="faq-section">
       <h2>{{ translations.faqsHeader }}</h2>
-      <p>{{ translations.questions }}</p>
       <div class="accordion-flex">
         <DynamicAccordion :accordion-items="faqs"/>
       </div>
