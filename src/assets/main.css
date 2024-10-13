@@ -18,6 +18,12 @@
     align-items: center;
 }
 
+.image-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 :root {
     --beige:#9fad88;
     --white: #ffffff;

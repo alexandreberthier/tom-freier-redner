@@ -27,3 +27,14 @@ export interface Image {
     image: string,
     alt: string
 }
+
+export interface Quote {
+    text: string,
+    author: string
+}
+
+export interface Skill {
+    image: string,
+    alt: string,
+    text: string
+}

@@ -45,7 +45,7 @@ defineProps<{
 
     p {
       max-width: 90%;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .icon-wrapper {
@@ -69,10 +69,6 @@ defineProps<{
     display: flex;
     justify-content: center;
     align-items: center;
-
-    p {
-      font-family: Catamaran-Light, sans-serif;
-    }
   }
 }
 
