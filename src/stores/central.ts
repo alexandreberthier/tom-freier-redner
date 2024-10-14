@@ -22,6 +22,16 @@ export const useCentralStore = defineStore('central', () => {
     function changeLanguage(lang: LanguageKey) {
         currentLanguage.value = lang;
         localStorage.setItem('lang', lang);
+
+        if (lang === 'de') {
+            document.title = 'Freier Redner für Hochzeiten, Trauerfeiern und Lebensfeiern | Tom Salzlechner';
+            document.querySelector('meta[name="description"]')?.setAttribute('content', 'Freier Redner für Hochzeiten, Trauerfeiern und Kinderwillkommensfeste.');
+        } else {
+            document.title = 'Freelance Speaker for Weddings, Funerals, and Celebrations | Tom Salzlechner';
+            document.querySelector('meta[name="description"]')?.setAttribute('content', 'Freelance speaker for weddings, funerals, naming ceremonies, and life celebrations.');
+        }
+
+        document.documentElement.lang = lang;
     }
 
     return {

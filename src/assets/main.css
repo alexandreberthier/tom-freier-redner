@@ -3,6 +3,7 @@
     src: url("../assets/fonts/Quicksand-Regular.ttf") format("truetype"),
     url("../assets/fonts/Quicksand-Regular.woff2") format("woff2");
     font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
@@ -10,18 +11,21 @@
     src: url("../assets/fonts/Bitter-Regular.ttf") format("truetype"),
     url("../assets/fonts/Bitter-Regular.woff2") format("woff2");
     font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
     font-family: Playfair;
     src: url("../assets/fonts/PlayfairDisplay-Regular.ttf") format("truetype");
     font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
     font-family: Gowun;
     src: url("../assets/fonts/GowunBatang-Regular.ttf") format("truetype");
     font-style: normal;
+    font-display: swap;
 }
 
 .icon-wrapper {
