@@ -69,10 +69,6 @@ defineProps<{
   quotes: Quote[]
 }>()
 
-
-
-
-
 </script>
 
 <style scoped>
@@ -97,13 +93,17 @@ defineProps<{
     display: flex;
     flex-direction: column;
     gap: 8px;
+    text-align: justify;
   }
 
   .image-wrapper {
+    height: 250px;
+    width: 100%;
     img {
-      width: 100%;
-      height: 100%;
+      width: 320px;
+      height: 250px;
       border-radius: 14px;
+      object-fit: cover;
     }
   }
 }
@@ -139,6 +139,21 @@ defineProps<{
 
 
 @media (min-width: 740px) {
+
+  .main-section {
+    .image-wrapper {
+      height: 350px;
+      width: 100%;
+      img {
+        width: 620px;
+        height: 350px;
+        border-radius: 14px;
+        object-fit: cover;
+      }
+    }
+  }
+
+
   .quote-section {
     .quote {
       width: 620px;
@@ -183,7 +198,7 @@ defineProps<{
       flex-direction: row;
       gap: 32px;
       width: 100%;
-      justify-content: center;
+      align-items: center;
     }
 
     h3 {
@@ -198,12 +213,12 @@ defineProps<{
     }
 
     .image-wrapper {
-      max-height: 480px;
+      height: 380px;
       width: 415px;
-      justify-content: flex-start;
-
       img {
-        object-fit: cover;
+        width: 415px;
+        height: 380px;
+        border-radius: 14px;
       }
     }
   }
@@ -231,6 +246,7 @@ defineProps<{
   }
 
   .main-section {
+    margin: 0 auto;
     h3 {
       width: 600px;
     }
@@ -240,7 +256,12 @@ defineProps<{
     }
 
     .image-wrapper {
-      width: 600px;
+      height: 400px;
+      width: 500px;
+      img {
+        width: 500px;
+        height: 400px;
+      }
     }
   }
 
