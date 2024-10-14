@@ -32,7 +32,7 @@ defineProps<{
   display: flex;
   flex-direction: column;
   gap: 8px;
-  border: 1px solid var(--beige);
+  border: 1px solid var(--dark-green);
   box-sizing: border-box;
   padding: 6px 12px;
   border-radius: 4px;

@@ -651,7 +651,7 @@ onMounted(() => {
 .fade-up {
   opacity: 0;
   transform: translateY(30px);
-  transition: all 800ms ease-in-out;
+  transition: all 600ms ease-in-out;
 }
 
 .fade-up.visible {

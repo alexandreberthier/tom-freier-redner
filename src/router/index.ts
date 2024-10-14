@@ -1,10 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import AboutView from "@/views/AboutView.vue";
-import WeddingView from "@/views/WeddingView.vue";
-import ChildCelebrationView from "@/views/ChildCelebrationView.vue";
-import FuneralView from "@/views/FuneralView.vue";
-import ImprintView from "@/views/ImprintView.vue";
 import { useCentralStore } from '@/stores/central';
 
 type LanguageKey = 'de' | 'en';
@@ -35,7 +30,7 @@ const router = createRouter({
     {
       path: '/uebermich',
       name: 'about',
-      component: AboutView,
+      component: () => import('@/views/AboutView.vue'),
       meta: {
         title: {
           de: 'Über mich | Tom Salzlechner',
@@ -50,7 +45,7 @@ const router = createRouter({
     {
       path: '/hochzeit',
       name: 'wedding',
-      component: WeddingView,
+      component: () => import('@/views/WeddingView.vue'),
       meta: {
         title: {
           de: 'Hochzeit | Tom Salzlechner - Freier Redner',
@@ -65,7 +60,7 @@ const router = createRouter({
     {
       path: '/willkommensfest',
       name: 'child-celebration',
-      component: ChildCelebrationView,
+      component: () => import('@/views/ChildCelebrationView.vue'),
       meta: {
         title: {
           de: 'Kinderwillkommensfest | Tom Salzlechner',
@@ -80,7 +75,7 @@ const router = createRouter({
     {
       path: '/lebens-und-trauerfeier',
       name: 'celebrations',
-      component: FuneralView,
+      component: () => import('@/views/FuneralView.vue'),
       meta: {
         title: {
           de: 'Lebensfeier und Trauerfeier | Tom Salzlechner',
@@ -95,7 +90,7 @@ const router = createRouter({
     {
       path: '/impressum',
       name: 'imprint',
-      component: ImprintView,
+      component: () => import('@/views/ImprintView.vue'),
       meta: {
         title: {
           de: 'Impressum | Tom Salzlechner',
