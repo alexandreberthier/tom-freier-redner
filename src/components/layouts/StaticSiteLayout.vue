@@ -154,22 +154,22 @@ defineProps<{
       }
     }
   }
-
 }
 
 @media (min-width: 1200px) {
   .header-section {
     display: flex;
     flex-direction: row;
-    gap: unset;
-    justify-content: space-between;
+    gap: 32px;
+    justify-content: center;
+    align-items: flex-end;
 
     h1 {
-      width: 50%;
+      width: 415px;
     }
 
     .sub-header-text {
-      width: 50%;
+      width: 415px;
     }
   }
 
@@ -216,8 +216,21 @@ defineProps<{
 }
 
 @media (min-width: 1920px) {
-  .main-section {
 
+  .header-section {
+    display: flex;
+    flex-direction: row;
+
+    h1 {
+      width: 600px;
+    }
+
+    .sub-header-text {
+      width: 600px;
+    }
+  }
+
+  .main-section {
     h3 {
       width: 600px;
     }

@@ -81,6 +81,7 @@ export interface Translations {
     funeralFaqQuestion5: string;
     funeralFaqAnswer5: string;
     childCelebrationHeader: string;
+    childCelebrationHeaderSmall: string;
     childCelebrationSubText: string;
     childCelebrationMainTextHeader: string;
     childCelebrationMainText1: string;

@@ -1,6 +1,6 @@
 <template>
   <StaticSiteLayout
-      :header="translations.childCelebrationHeader"
+      :header="translations.childCelebrationHeaderSmall"
       :subHeaderText="translations.childCelebrationSubText"
       :image1="'img_tom3-min.jpeg'"
       :image2="'img_tom5-min.jpeg'"
