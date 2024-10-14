@@ -175,7 +175,7 @@ const socials: Ref<SocialLink[]> = ref([
 
           img {
             width: 200px;
-            height: auto;
+            height: 109px;
           }
         }
       }

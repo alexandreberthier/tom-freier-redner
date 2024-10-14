@@ -21,13 +21,13 @@
     </section>
     <section class="hero-images">
       <div ref="image1" class="image-wrapper fade-up">
-        <img class="image1" :src="getImage('img_tom1-min.jpeg')" alt="hochzeit">
+        <img class="image1" :src="getImage('img_tom1-min.webp')" alt="hochzeit">
       </div>
       <div ref="image2" class="image-wrapper fade-up">
-        <img class="image2" :src="getImage('img_tom5-min.jpeg')" alt="hochzeit">
+        <img class="image2" :src="getImage('img_tom5-min.webp')" alt="hochzeit">
       </div>
       <div ref="image3" class="image-wrapper fade-up">
-        <img class="image3" :src="getImage('img_tom6-min.jpeg')" alt="hochzeit">
+        <img class="image3" :src="getImage('img_tom6-min.webp')" alt="hochzeit">
       </div>
     </section>
   </div>
@@ -254,21 +254,21 @@ const contactOptions: Ref<ContactOption[]> = ref([
 
 const services: ComputedRef<Service[]> = computed(() => [
   {
-    image: 'img_tom3-min.jpeg',
+    image: 'img_tom3-min.webp',
     alt: translations.value.weddingHeader,
     heading: translations.value.weddingHeader,
     text: translations.value.homeServiceCardText1,
     pathName: 'wedding'
   },
   {
-    image: 'img_tom4-min.jpeg',
+    image: 'img_tom4-min.webp',
     alt: translations.value.childCelebrationHeader,
     heading: translations.value.childCelebrationHeader,
     text: translations.value.homeServiceCardText2,
     pathName: 'child-celebration'
   },
   {
-    image: 'img_tom7-min.jpeg',
+    image: 'img_tom7-min.webp',
     alt: translations.value.funeralHeader,
     heading: translations.value.funeralHeader,
     text: translations.value.homeServiceCardText3,

@@ -2,8 +2,8 @@
   <StaticSiteLayout
       :header="translations.childCelebrationHeaderSmall"
       :subHeaderText="translations.childCelebrationSubText"
-      :image1="'img_tom3-min.jpeg'"
-      :image2="'img_tom5-min.jpeg'"
+      :image1="'img_tom3-min.webp'"
+      :image2="'img_tom5-min.webp'"
       :main-text-header="translations.childCelebrationMainTextHeader"
       :mainText1="translations.childCelebrationMainText1"
       :mainText2="translations.childCelebrationMainText2"

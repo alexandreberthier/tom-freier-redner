@@ -2,8 +2,8 @@
  <StaticSiteLayout
      :header="translations.aboutHeader"
      :subHeaderText="translations.aboutSubText"
-     :image1="'img_tom1-min.jpeg'"
-     :image2="'img_tom4-min.jpeg'"
+     :image1="'img_tom1-min.webp'"
+     :image2="'img_tom4-min.webp'"
      :main-text-header="translations.aboutMainTextHeader"
      :mainText1="translations.aboutMainText1"
      :mainText2="translations.aboutMainText2"
@@ -12,7 +12,7 @@
  >
    <section class="bottom-section">
      <div class="image-wrapper">
-       <img :src="getImage('img_tom1-min.jpeg')" alt="image">
+       <img :src="getImage('img_tom1-min.webp')" alt="image">
      </div>
      <div class="skill-flex">
        <div
@@ -130,11 +130,17 @@ const skills = computed(() => [
     align-items: flex-start;
     flex-wrap: wrap;
 
-
     .skill {
       display: flex;
       align-items: center;
       gap: 10px;
+
+      .icon-wrapper {
+        img {
+          width: 32px;
+          height: 32px;
+        }
+      }
     }
   }
 }
