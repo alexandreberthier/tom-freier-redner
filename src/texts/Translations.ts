@@ -53,7 +53,8 @@ export interface Translations {
     weddingHeader: string;
     weddingSubText: string;
     weddingMainTextHeader: string;
-    weddingMainText: string;
+    weddingMainText1: string;
+    weddingMainText2: string;
     weddingFaqQuestion1: string;
     weddingFaqAnswer1: string;
     weddingFaqQuestion2: string;
@@ -67,7 +68,8 @@ export interface Translations {
     funeralHeader: string;
     funeralSubText: string;
     funeralMainTextHeader: string;
-    funeralMainText: string;
+    funeralMainText1: string;
+    funeralMainText2: string;
     funeralFaqQuestion1: string;
     funeralFaqAnswer1: string;
     funeralFaqQuestion2: string;
@@ -81,7 +83,8 @@ export interface Translations {
     childCelebrationHeader: string;
     childCelebrationSubText: string;
     childCelebrationMainTextHeader: string;
-    childCelebrationMainText: string;
+    childCelebrationMainText1: string;
+    childCelebrationMainText2: string;
     childCelebrationFaqQuestion1: string;
     childCelebrationFaqAnswer1: string;
     childCelebrationFaqQuestion2: string;
@@ -110,4 +113,7 @@ export interface Translations {
     questions: string;
     contactHeader: string;
     contactSubText: string;
+    guestComment1: string;
+    guestComment2: string;
+    guestComment3: string;
 }

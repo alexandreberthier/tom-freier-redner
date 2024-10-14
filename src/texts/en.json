@@ -24,7 +24,9 @@
   "questions": "Questions?",
   "contactHeader": "Send me a message!",
   "contactSubText": "Whether by email, phone, or contact form – I look forward to hearing from you and answering your questions.",
-
+  "guestComment1": "On 14.09.2024, I was at a beautiful wedding led by Tom, and I was amazed! His speech was the perfect mix of charm, humor, and romantic moments. He took us on an emotional journey through the couple's life.",
+  "guestComment2": "Dear Tom, thank you for enriching our wedding with your wonderful words. Your speech was emotional, heartfelt, and full of humor – it captured exactly what defines us as a couple. It was an unforgettable moment that will stay with us forever. Thank you! Love, Maxi and Philip",
+  "guestComment3": "I had the pleasure of experiencing a live speech, and it was simply magical! The combination of beautiful words, quotes, and humor made the moment unforgettable. Thank you so much!",
   "homeHeader": "Together, we create unforgettable moments",
   "homeSubText": "Whether it’s a wedding, life celebration, or a special occasion – with thoughtful words and your story, we’ll make your celebration a unique experience. Let’s create memories that will stay in your heart.",
   "homeBannerHeader": "Your unique ceremony – just the way you want it",
@@ -47,7 +49,6 @@
   "homeFaqAnswer4": "The earlier, the better! Ideally, you should contact me 6 to 12 months before your desired date to allow enough time for preparation.",
   "homeFaqQuestion5": "In which area do you operate?",
   "homeFaqAnswer5": "I’m flexible and work in the region and beyond. I’m happy to come to a location of your choice – just ask.",
-
   "aboutHeader": "About me",
   "aboutSubText": "Together, we create an unforgettable ceremony that expresses your story and wishes in a special way.",
   "aboutMainTextHeader": "Hello everyone!",
@@ -69,11 +70,11 @@
   "aboutSkill2": "Weddings, child welcome ceremonies",
   "aboutSkill3": "Loves pizza, good TV series, and enjoys talking",
   "aboutSkill4": "Certified Free Speaker (ZFR)",
-
   "weddingHeader": "Wedding",
   "weddingSubText": "Together, we create an unforgettable ceremony that expresses your story and wishes in a special way.",
   "weddingMainTextHeader": "Your love, your ceremony",
-  "weddingMainText": "The goal of a free wedding ceremony is not to have to say, 'That’s just how it’s done.' Of course, I know that simply saying, 'Do whatever you want,' won’t help much either. I would have been overwhelmed by that at my own wedding. That’s why I give you a guide to follow – but it’s entirely up to you. Every aspect can be adjusted to suit your preferences. The advantage is that we’ll create a unique ceremony that reflects your personalities. The first step is to see if we’re a good match. We’ll start with a casual introduction to get to know each other and discuss the foundation of your wedding. After that, we can decide if we want to move forward together. If we do, we’ll follow up with a detailed conversation where I’ll draw out your unique qualities to write a speech that reflects the start of your shared life together.",
+  "weddingMainText1": "<p>The goal of a free wedding ceremony is to avoid hearing the phrase, 'We do it this way because that’s how it’s done.'</p> <p>Of course, I also understand that it doesn't help much to say, 'Do it however you like.' I would have been completely overwhelmed by that at my own wedding.</p> <p>That’s why I provide you with a guide that you can follow, but of course, you don't have to – every point can be tailored to your wishes.</p> <p>The advantage is that we can create a unique ceremony together that reflects who you are as individuals.</p>",
+  "weddingMainText2": "<p>The first step is to see if I’m a good fit for you and if you’re a good fit for me so that we can create the best possible ceremony together.</p> <p>We start with a non-binding meeting to get to know each other and discuss the foundation of your wedding ceremony.</p> <p>Afterward, we can decide whether we want to take the next steps together.</p> <p>If we agree, we will have a detailed conversation where I’ll draw out your unique traits so I can get to know you as individuals and as a couple. Only then can I write a speech that will truly mark the start of your life together.</p>",
   "weddingFaqQuestion1": "What distinguishes a free wedding from a church or civil ceremony?",
   "weddingFaqAnswer1": "A free wedding is independent of religious or state guidelines. It gives you the freedom to design your ceremony according to your own wishes, whether through personal vows, rituals, or contributions from friends and family.",
   "weddingFaqQuestion2": "How does the planning of a free wedding work?",
@@ -84,11 +85,11 @@
   "weddingFaqAnswer4": "Yes, I’m flexible and happy to travel to your desired location, whether at home or abroad. It’s important that the location suits you and provides a beautiful setting for your ceremony.",
   "weddingFaqQuestion5": "How long does a free wedding ceremony last?",
   "weddingFaqAnswer5": "A free wedding usually lasts between 30 and 45 minutes, depending on the program and individual contributions. The duration can, of course, be adjusted to suit your wishes.",
-
   "funeralHeader": "Life / Funeral Ceremony",
   "funeralSubText": "Together, we create a dignified farewell that lovingly remembers the life of your loved one in all its facets.",
   "funeralMainTextHeader": "A dignified farewell",
-  "funeralMainText": "In 2018, we held the life celebration for my father. We chose a free speaker to support us during this difficult time. Speaking about our father and hearing the speech at the funeral personally helped me to process my grief. Now, I want to be there for people and families who have to walk the same path. It’s important to me not just to mourn the death, but to celebrate the life of the loved one. There are countless memories worth reliving and carrying forward in our hearts. During the ceremony, I won’t philosophize or share life wisdoms – I’m here for the same reason as you: to honor your loved one. Before the life celebration, we’ll meet once to go over the facts, the order of the ceremony, and to get to know your loved one through your stories. You’re welcome to be as detailed as you’d like!",
+  "funeralMainText1": "<p>In 2018, we had to organize my father's life celebration. At that time, we decided on a freelance speaker who supported us during this very difficult period. Talking about my father and hearing the speech at the funeral itself personally helped me to allow and process the grief. Now, I want to be there for people or families who have to walk the same path.</p> <p>What’s important to me is not only to mourn the death but to celebrate the life of the beloved person. There are countless memories worth bringing back to life and carrying in our hearts.</p>",
+  "funeralMainText2": "<p>During the ceremony, I don’t want to philosophize or share words of wisdom, because I’m here for the same reason as you: for your beloved person.</p> <p>Before the life celebration, we will meet once. During that time, we will discuss the facts, followed by the flow of the ceremony, and afterward, I want to get to know your loved one. That means you can share stories and feel free to elaborate!</p>",
   "funeralFaqQuestion1": "What is the difference between a life celebration and a traditional funeral?",
   "funeralFaqAnswer1": "A life celebration focuses on honoring the life and memories of the deceased. Unlike traditional funerals, which often center on the grief of loss, a life celebration focuses on the positive moments and legacy of the person.",
   "funeralFaqQuestion2": "How do you create a life or funeral ceremony?",
@@ -99,11 +100,11 @@
   "funeralFaqAnswer4": "Typically, a ceremony lasts about 30 to 60 minutes, depending on how many contributions and rituals are included. The duration can be adjusted to suit the family’s wishes.",
   "funeralFaqQuestion5": "Where can a life or funeral ceremony take place?",
   "funeralFaqAnswer5": "The ceremony can take place anywhere that holds meaning for the family and the deceased. Whether outdoors, in a funeral hall, or at a special location – I’m flexible and will help you choose the right setting.",
-
   "childCelebrationHeader": "Child Welcome Ceremony",
   "childCelebrationSubText": "Together, we celebrate the arrival of your little one with a loving and joyful ceremony – just the way you want it.",
   "childCelebrationMainTextHeader": "A special moment",
-  "childCelebrationMainText": "Since May 2024, I’ve been the father of our wonderful Lou, and what can I say, she’s turned our world upside down. There are so many incredible moments that enrich our lives now, from the late-night shifts (haha) to a smile at just the right moment. We want to pause and celebrate this new life with our loved ones. That’s why a child welcome ceremony is just the right thing. Together with your guests, we’ll create a ceremony to celebrate you as parents, welcome your child, and, of course, honor the godparents and prepare them for their roles. We have complete creative freedom and can create memories that reflect you as a family and, most importantly, suit your little one. In a meeting, we’ll get to know each other and discuss the framework and structure of the ceremony. I would be very happy if you reach out, and I look forward to accompanying you on this journey.",
+  "childCelebrationMainText1": "<p>Since May 2024, I’ve been the father of our adorable Lou, and what can I say, the little one has turned our lives upside down. There are so many incredible moments that now enrich our lives, whether it’s the late-night shifts (haha) or a smile at just the right moment. We definitely want to pause with our loved ones to welcome and celebrate this new life.</p> <p>That’s why a child naming ceremony is just the right thing. Together with your guests, we create a ceremony to celebrate you as parents, welcome your child, and of course, honor the godparents and prepare them for their responsibilities.</p>",
+  "childCelebrationMainText2": "<p>We have complete creative freedom and can create memories that define you as a family and, most importantly, suit your child.</p> <p>In a conversation, we’ll get to know each other and discuss the framework and schedule of the ceremony. I would be delighted if you reach out to me so I can accompany you on this special occasion.</p>",
   "childCelebrationFaqQuestion1": "What is the difference between a life celebration and a traditional funeral?",
   "childCelebrationFaqAnswer1": "A life celebration focuses on honoring the life and memories of the deceased. Unlike traditional funerals, which often center on the grief of loss, a life celebration focuses on the positive moments and legacy of the person.",
   "childCelebrationFaqQuestion2": "How do you create a life or funeral ceremony?",
@@ -114,6 +115,5 @@
   "childCelebrationFaqAnswer4": "Typically, a ceremony lasts about 30 to 60 minutes, depending on how many contributions and rituals are included. The duration can be adjusted to suit the family’s wishes.",
   "childCelebrationFaqQuestion5": "Where can a life or funeral ceremony take place?",
   "childCelebrationFaqAnswer5": "The ceremony can take place anywhere that holds meaning for the family and the deceased. Whether outdoors, in a funeral hall, or at a special location – I’m flexible and will help you choose the right setting.",
-
   "imprintHeader": "Imprint"
 }
