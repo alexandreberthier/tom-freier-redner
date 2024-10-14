@@ -1,18 +1,3 @@
-@font-face {
-    font-family: Quicksand;
-    src: url("../assets/fonts/Quicksand-Regular.ttf") format("truetype"),
-    url("../assets/fonts/Quicksand-Regular.woff2") format("woff2");
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: Bitter;
-    src: url("../assets/fonts/Bitter-Regular.ttf") format("truetype"),
-    url("../assets/fonts/Bitter-Regular.woff2") format("woff2");
-    font-style: normal;
-    font-display: swap;
-}
 
 @font-face {
     font-family: Playfair;
