@@ -34,15 +34,19 @@
 
   <section class="text-section">
     <div ref="textSection" class="text-wrapper fade-up">
-      <h2>{{ translations.homeBannerHeader }}</h2>
-      <p class="sub-heading-text">{{ translations.homeBannerText1 }}</p>
-      <div class="text text1">
-        <h3>{{ translations.homeBannerHeader2 }}</h3>
-        <p>{{ translations.homeBannerText2 }}</p>
+      <div class="top-section">
+        <h2>{{ translations.homeBannerHeader }}</h2>
+        <p>{{ translations.homeBannerText1 }}</p>
       </div>
-      <div class="text text2">
-        <h3>{{ translations.homeBannerHeader3 }}</h3>
-        <p>{{ translations.homeBannerText3 }}</p>
+      <div class="bottom-section">
+        <div class="left">
+          <p>{{ translations.homeBannerText2 }}</p>
+          <p>{{ translations.homeBannerText3 }}</p>
+        </div>
+        <div class="right">
+          <p>{{ translations.homeBannerText4 }}</p>
+          <p>{{ translations.homeBannerText5 }}</p>
+        </div>
       </div>
     </div>
   </section>
@@ -343,7 +347,7 @@ onMounted(() => {
     align-items: center;
     gap: 16px;
 
-    & >*{
+    & > * {
       width: 100%;
     }
   }
@@ -377,37 +381,32 @@ onMounted(() => {
   justify-content: center;
   align-items: center;
 
-  .text-wrapper {
-    display: grid;
+  .text-wrapper  {
     width: 320px;
-    grid-template-columns: auto;
-    grid-template-rows: repeat(4, auto);
-    grid-row-gap: 16px;
-    grid-template-areas:
-      "heading"
-      "sub-text"
-      "text1"
-      "text2";
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 
-    h2 {
-      grid-area: heading;
+    p {
+      text-align: justify;
     }
 
-    .sub-heading-text {
-      grid-area: sub-text;
+
+    .top-section {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
-    .text {
+    .bottom-section {
       display: flex;
       flex-direction: column;
       gap: 8px;
 
-      &.text1 {
-        grid-area: text1;
-      }
-
-      &.text2 {
-        grid-area: text2;
+      .left, .right {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
       }
     }
   }
@@ -481,7 +480,6 @@ onMounted(() => {
 @media (min-width: 740px) {
 
   .hero {
-
     .button-section {
       display: flex;
       flex-direction: row;
@@ -489,7 +487,7 @@ onMounted(() => {
       justify-content: flex-start;
       gap: 16px;
 
-      & >*{
+      & > * {
         width: 170px;
       }
     }
@@ -523,19 +521,21 @@ onMounted(() => {
   }
 
   .text-section {
-    .text-wrapper {
+    .text-wrapper  {
       width: 620px;
-      display: grid;
-      grid-template-columns: repeat(2, auto);
-      grid-template-rows: repeat(3, auto);
-      grid-row-gap: 16px;
-      grid-column-gap: 16px;
-      grid-template-areas:
-      "heading heading"
-      "sub-text sub-text"
-      "text1 text2";
+      gap: 16px;
+      .bottom-section {
+        display: flex;
+        flex-direction: row;
+        gap: 32px;
+
+        .left, .right {
+          width: 50%;
+        }
+      }
     }
   }
+
 
   .slider-section {
     width: 640px;
@@ -598,8 +598,17 @@ onMounted(() => {
   }
 
   .text-section {
-    .text-wrapper {
+    .text-wrapper  {
       width: 860px;
+      .bottom-section {
+        display: flex;
+        flex-direction: row;
+        gap: 32px;
+
+        .left, .right {
+          width: 50%;
+        }
+      }
     }
   }
 
@@ -632,18 +641,19 @@ onMounted(() => {
       }
     }
   }
-
   .text-section {
     .text-wrapper {
       width: 1260px;
-      display: grid;
-      grid-template-columns: repeat(3, auto);
-      grid-template-rows: repeat(2, auto);
-      grid-row-gap: 16px;
-      grid-column-gap: 16px;
-      grid-template-areas:
-      "heading sub-text sub-text"
-      "heading text1 text2";
+
+      .bottom-section {
+        display: flex;
+        flex-direction: row;
+        gap: 32px;
+
+        .left, .right {
+          width: 50%;
+        }
+      }
     }
   }
 }

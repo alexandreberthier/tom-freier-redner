@@ -6,13 +6,12 @@
       </div>
       <p>{{ currentLanguage.toUpperCase() }}</p>
     </div>
-
     <div class="language-options" v-if="showLanguageOptions">
       <div
           class="option"
           v-for="(lang, index) in availableLanguages"
           :key="index"
-          @click="changeLanguage(lang)">
+          @click.stop="changeLanguage(lang)">
         <p>{{ lang.toUpperCase() }}</p>
       </div>
     </div>

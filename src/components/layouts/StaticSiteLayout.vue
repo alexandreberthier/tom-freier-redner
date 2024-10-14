@@ -101,7 +101,7 @@ onMounted(() => {
 .main-section {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
 
   .top-wrapper {
     display: flex;
@@ -131,11 +131,13 @@ onMounted(() => {
     }
   }
 
-
   .main-text1, .main-text2, .heading-text {
     display: flex;
     flex-direction: column;
     gap: 8px;
+  }
+
+  .main-text1, .main-text2 {
     text-align: justify;
   }
 
@@ -198,7 +200,6 @@ onMounted(() => {
     }
   }
 
-
   .quote-section {
     .quote {
       width: 620px;
@@ -241,7 +242,7 @@ onMounted(() => {
     .top-wrapper, .bottom-wrapper {
       display: flex;
       flex-direction: row;
-      gap: 32px;
+      gap: 50px;
       width: 100%;
       align-items: center;
     }
@@ -254,7 +255,7 @@ onMounted(() => {
       display: flex;
       flex-direction: column;
       gap: 8px;
-      width: 415px;
+      width: 395px;
     }
 
     .image-wrapper {

@@ -11,10 +11,10 @@ export interface Translations {
     homeSubText: string;
     homeBannerHeader: string;
     homeBannerText1: string;
-    homeBannerHeader2: string;
     homeBannerText2: string;
-    homeBannerHeader3: string;
     homeBannerText3: string;
+    homeBannerText4: string;
+    homeBannerText5: string;
     homeServiceSectionHeader: string;
     homeServiceCardText1: string;
     homeServiceCardText2: string;
