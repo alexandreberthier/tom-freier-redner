@@ -20,6 +20,7 @@
         </router-link>
       </div>
       <div class="hide-desktop">
+        <Toggle/>
         <LanguageSelection/>
       </div>
       <div @click="toggleMenu"
@@ -31,6 +32,7 @@
     <div class="wrapper">
       <div class="show-desktop">
         <LanguageSelection/>
+        <Toggle/>
       </div>
       <DynamicButton
           :button-type="ButtonType.Primary"
@@ -52,6 +54,7 @@ import type {Link} from "@/models/PropInterfaces";
 import DynamicButton from "@/components/DynamicButton.vue";
 import {useCentralStore} from "@/stores/central";
 import LanguageSelection from "@/components/LanguageSelection.vue";
+import Toggle from "@/components/Toggle.vue";
 
 const centralStore = useCentralStore()
 const translations = computed(() => centralStore.translations);
@@ -114,6 +117,11 @@ const links: ComputedRef<Link[]> = computed(() => [
 </script>
 
 <style scoped>
+
+.hide-desktop {
+  display: flex;
+  align-items: center;
+}
 
 .nav-wrapper {
   width: 100%;
@@ -294,7 +302,9 @@ const links: ComputedRef<Link[]> = computed(() => [
     gap: 10px;
 
     .show-desktop {
-      display: block;
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
     }
   }
 }

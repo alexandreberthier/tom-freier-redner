@@ -1,12 +1,12 @@
 <template>
   <div class="content-wrapper">
     <section class="header-section">
-      <h1>{{header}}</h1>
-      <p class="sub-header-text">{{subHeaderText}}</p>
+      <h1>{{ header }}</h1>
+      <p class="sub-header-text">{{ subHeaderText }}</p>
     </section>
 
     <section class="main-section">
-      <div class="top-wrapper">
+      <div ref="topWrapper" class="top-wrapper">
         <div class="image-wrapper">
           <img :src="getImage(image1)" alt="image">
         </div>
@@ -15,10 +15,10 @@
           <p class="main-text1" v-html="mainText1"></p>
         </div>
       </div>
-      <div class="bottom-wrapper">
+      <div ref="bottomWrapper"  class="bottom-wrapper">
         <p class="main-text2" v-html="mainText2"></p>
         <div class="image-wrapper">
-          <img :src="getImage(image2)" alt="image">
+          <img  :src="getImage(image2)" alt="image">
         </div>
       </div>
     </section>
@@ -56,18 +56,38 @@ import {getImage} from "@/utils/ImageUtils";
 import DynamicAccordion from "@/components/DynamicAccordion.vue";
 import DynamicSlider from "@/components/DynamicSlider.vue";
 import type {FaqItem, Quote} from "@/models/PropInterfaces";
+import {onMounted, ref} from "vue";
 
 defineProps<{
-  header:string,
+  header: string,
   subHeaderText: string
   image1: string,
   image2: string,
-  mainTextHeader:string
-  mainText1:string,
-  mainText2:string
+  mainTextHeader: string
+  mainText1: string,
+  mainText2: string
   faqs: FaqItem[]
   quotes: Quote[]
 }>()
+
+const topWrapper = ref(null)
+const bottomWrapper = ref(null)
+
+onMounted(() => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target)
+      }
+    })
+  }, {
+    threshold: 0.1
+  })
+
+  if (topWrapper.value) observer.observe(topWrapper.value);
+  if (bottomWrapper.value) observer.observe(bottomWrapper.value);
+})
 
 </script>
 
@@ -83,11 +103,34 @@ defineProps<{
   flex-direction: column;
   gap: 16px;
 
-  .top-wrapper, .bottom-wrapper {
+  .top-wrapper {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    opacity: 0;
+    transform: translateX(-30%);
+    transition: all 600ms ease-in-out;
+
+
+    &.visible {
+      opacity: 1;
+      transform: translateX(0%);
+    }
   }
+  .bottom-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    opacity: 0;
+    transform: translateX(30%);
+    transition: all 600ms ease-in-out;
+
+    &.visible {
+      opacity: 1;
+      transform: translateX(0%);
+    }
+  }
+
 
   .main-text1, .main-text2, .heading-text {
     display: flex;
@@ -99,6 +142,7 @@ defineProps<{
   .image-wrapper {
     height: 250px;
     width: 100%;
+
     img {
       width: 320px;
       height: 250px;
@@ -144,6 +188,7 @@ defineProps<{
     .image-wrapper {
       height: 350px;
       width: 100%;
+
       img {
         width: 620px;
         height: 350px;
@@ -215,6 +260,7 @@ defineProps<{
     .image-wrapper {
       height: 380px;
       width: 415px;
+
       img {
         width: 415px;
         height: 380px;
@@ -247,6 +293,7 @@ defineProps<{
 
   .main-section {
     margin: 0 auto;
+
     h3 {
       width: 600px;
     }
@@ -258,6 +305,7 @@ defineProps<{
     .image-wrapper {
       height: 400px;
       width: 500px;
+
       img {
         width: 500px;
         height: 400px;
@@ -268,6 +316,7 @@ defineProps<{
   .quote-section {
     .quote {
       width: 1260px;
+
       .text {
         font-size: 26px;
       }

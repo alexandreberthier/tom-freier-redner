@@ -47,6 +47,18 @@
     --darker-green: #0d322f;
 }
 
+[data-theme="dark"] {
+    --beige: #2c3e50;
+    --white: #2c3e50;
+    --dark-green: #9fad88;
+    --darker-green: #bdc3c7;
+}
+
+html, body {
+    background-color: var(--white);
+}
+
+
 html, body {
     padding: 0;
     margin: 0;
@@ -56,17 +68,20 @@ html, body {
 h1, h2, h3, h4, h5 {
     margin: 0;
     font-family: Playfair, sans-serif;
+    color: var(--dark-green)
 }
 
 p {
     margin: 0;
     font-family: Gowun, sans-serif;
     font-size: 18px;
+    color: var(--dark-green)
 }
 
 h1 {
     font-size: 36px;
     line-height: 1.2;
+
 }
 
 h2 {
@@ -91,7 +106,7 @@ a {
 
 .link {
     text-decoration: none;
-    color: var(--darker-green);
+    color: var(--dark-green);
     position: relative;
     font-family:Gowun, sans-serif;
 
@@ -102,7 +117,7 @@ a {
         left: 0;
         width: 0;
         height: 2px;
-        background-color: var(--darker-green);
+        background-color: var(--dark-green);
         transition: all 150ms ease-in-out;
     }
 

@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
+import { computed, ref } from "vue";
 import de from '@/texts/de.json';
 import en from '@/texts/en.json';
-import { computed, ref } from "vue";
 import type { Translations } from "@/texts/Translations";
 
 type LanguageKey = 'de' | 'en';
@@ -9,6 +9,7 @@ type LanguageKey = 'de' | 'en';
 export const useCentralStore = defineStore('central', () => {
     const languages = ref<{ de: Translations; en: Translations }>({ de, en });
     const currentLanguage = ref<LanguageKey>(localStorage.getItem('lang') as LanguageKey || getUserLanguage());
+    const darkMode = ref<boolean>(localStorage.getItem('darkMode') === 'true' || false);
 
     function getUserLanguage(): LanguageKey {
         const userLang = navigator.language || navigator.userAgent;
@@ -17,7 +18,7 @@ export const useCentralStore = defineStore('central', () => {
 
     const translations = computed<Translations>(() => {
         return languages.value[currentLanguage.value];
-    })
+    });
 
     function changeLanguage(lang: LanguageKey) {
         currentLanguage.value = lang;
@@ -34,9 +35,17 @@ export const useCentralStore = defineStore('central', () => {
         document.documentElement.lang = lang;
     }
 
+    function toggleDarkMode() {
+        darkMode.value = !darkMode.value;
+        localStorage.setItem('darkMode', String(darkMode.value));
+        document.documentElement.setAttribute('data-theme', darkMode.value ? 'dark' : 'light');
+    }
+
     return {
         changeLanguage,
         translations,
-        currentLanguage
-    }
-})
+        currentLanguage,
+        darkMode,
+        toggleDarkMode
+    };
+});

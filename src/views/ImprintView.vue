@@ -3,17 +3,17 @@
     <h1>Impressum</h1>
     <StaticSection section-header="Angaben gemäß § 5 E-Commerce-Gesetz (ECG):">
       <div class="text-section">
-        <p>Tom Mustermann</p>
-        <p>Musterstraße 12</p>
-        <p>1010 Wien</p>
+        <p>Thomas Salzlechner</p>
+        <p>Mühlbachstraße 51</p>
+        <p>5201 Seekirchen</p>
         <p>Österreich</p>
       </div>
     </StaticSection>
     <StaticSection section-header="Kontakt:">
       <div class="text-section">
         <p>Telefon: +43 660 1234567</p>
-        <p>E-Mail: tom@freie-reden.at</p>
-        <p>Website: www.freie-reden.at</p>
+        <p>E-Mail: tom.s@reierredner.at</p>
+        <p>Website: www.freier-redner-tom.at</p>
       </div>
     </StaticSection>
     <StaticSection section-header="Unternehmensform:">
@@ -37,16 +37,11 @@
         <p>E-Commerce-Gesetz (ECG), Mediengesetz (MedienG), Gewerbeordnung (GewO)</p>
       </div>
     </StaticSection>
-    <StaticSection section-header="Aufsichtsbehörde:">
-      <div class="text-section">
-        <p>Magistratisches Bezirksamt für den 1. Bezirk Wien</p>
-      </div>
-    </StaticSection>
     <StaticSection section-header="Verantwortlich für den Inhalt:">
       <div class="text-section">
-        <p>Tom Mustermann</p>
-        <p>Musterstraße 12</p>
-        <p>1010 Wien</p>
+        <p>Thomas Salzlechner</p>
+        <p>Mühlbachstraße 51</p>
+        <p>5201 Seekirchen</p>
         <p>Österreich</p>
       </div>
     </StaticSection>
@@ -84,7 +79,3 @@
 <script setup lang="ts">
 import StaticSection from "@/components/layouts/StaticSection.vue";
 </script>
-
-<style scoped>
-
-</style>
