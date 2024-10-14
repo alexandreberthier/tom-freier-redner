@@ -1,6 +1,6 @@
 <template>
-  <div class="language-selection">
-    <div class="selected-option" @click="toggleLanguageOptions">
+  <div @click="toggleLanguageOptions" class="language-selection">
+    <div class="selected-option">
       <div class="icon-wrapper">
         <img :src="getImage('ic_globe.png')" alt="Globale Sprachauswahl">
       </div>
