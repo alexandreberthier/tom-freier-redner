@@ -11,7 +11,7 @@
 
   <div class="content-wrapper">
     <section ref="hero" class="hero fade-up">
-     <!-- <h1>{{ translations.homeHeader }}</h1>
+     <h1>{{ translations.homeHeader }}</h1>
       <p>{{ translations.homeSubText }}</p>
       <div class="button-section">
         <DynamicButton
@@ -27,7 +27,7 @@
             path-name="about"
             :button-text="translations.aboutMe"
         />
-      </div>  -->
+      </div>
     </section>
     <section class="hero-images">
       <div ref="image1" class="image-wrapper fade-up">
@@ -453,12 +453,20 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    border-radius: 20px;
+    cursor: crosshair;
 
     img {
       object-fit: cover;
       width: 100%;
       height: auto;
       border-radius: 20px;
+      transition: all 400ms ease-in-out;
+    }
+
+    &:hover img {
+      transform: scale(1.2) rotate(5deg);
     }
   }
 }
@@ -724,13 +732,13 @@ header {
       }
 
       .image2 {
-        height: 190px;
-        width: 190px;
+        height: 250px;
+        width: 250px;
       }
 
       .image3 {
         height: 250px;
-        width: 190px;
+        width: 250px;
       }
     }
   }
