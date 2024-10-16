@@ -1,10 +1,10 @@
 <template>
   <div class="parallax-container">
-    <div :style="{ transform: `translateY(${parallaxYHeader}px)` }" class="background">
+    <div class="background">
       <div class="overlay"></div>
     </div>
     <header>
-      <h1>Mit den Gästen, statt vor den Gästen</h1>
+      <h1 :style="{ transform: `translateY(-${parallaxYHeader}px)` }" >Mit den Gästen, statt vor den Gästen</h1>
     </header>
       <p class="text-header" :style="{ transform: `translateY(${parallaxYText}px)` }">{{ translations.homeSubText }}</p>
   </div>
@@ -178,7 +178,7 @@ const parallaxYText = ref(0);
 function handleScroll() {
   let scrollPosition = window.scrollY;
 
-  parallaxYHeader.value = Math.min(scrollPosition * 0.4, 200);  // max. Y-Wert für Header
+  parallaxYHeader.value = Math.min(scrollPosition * 0.3, 200);  // max. Y-Wert für Header
   parallaxYText.value = Math.min(scrollPosition * 0.2, 150);    // max. Y-Wert für Text
 }
 
@@ -392,10 +392,10 @@ header {
   justify-content: center;
 
   h1 {
-    font-size: 3rem;
+
     color: rgba(255, 255, 255, 0.9);
     text-shadow: 2px 2px 10px rgba(0, 128, 0, 0.7); /* Grüner Schatten */
-    margin: 0 auto;
+    margin: 0 auto 20px auto;
     width: 80%;
   }
 }
@@ -413,12 +413,13 @@ header {
 
 .text-header {
   position: relative;
-  z-index: 2;
+  z-index: 1 ;
   text-align: center;
   width: 70%;
   background-color: rgba(255, 255, 255, 0.8);
   padding: 20px;
-  margin-top: 40px; /* Mehr Abstand zwischen der Überschrift und diesem Textblock */
+  box-sizing: border-box;
+  margin-top: 20px; /* Mehr Abstand zwischen der Überschrift und diesem Textblock */
   border-radius: 4px;
 }
 
