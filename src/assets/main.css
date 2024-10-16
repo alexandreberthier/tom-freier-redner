@@ -114,7 +114,7 @@ a {
 
 .content-wrapper {
     width: 320px;
-    margin: 0 auto;
+    margin: 110px auto 0 auto;
     display: flex;
     flex-direction: column;
     gap: 70px;

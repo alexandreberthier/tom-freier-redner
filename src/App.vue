@@ -18,6 +18,14 @@ import NavBar from "@/components/NavBar.vue";
 </script>
 
 <style scoped>
+
+nav {
+  z-index: 100;
+  position: fixed;
+  left: 0;
+  right: 0;
+}
+
 main {
   display: flex;
   flex-direction: column;
