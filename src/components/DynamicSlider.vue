@@ -1,294 +1,229 @@
 <template>
-  <div class="wrapper">
-    <div class="outer">
-      <div ref="sliderWrapper" class="slider-wrapper">
-        <div ref="slidesWrapper" class="slides-wrapper" @scroll="handleScroll">
-          <slot></slot>
-        </div>
-      </div>
-      <div  v-if="props.arrowNavigation" role="button" @click="prevSlide" class="icon-wrapper arrow-left">
-        <img :src="getImage('ic_chevron_left.png')" alt="links">
-      </div>
-      <div  v-if="props.arrowNavigation" role="button" @click="nextSlide" class="icon-wrapper arrow-right">
-        <img :src="getImage('ic_chevron_right.png')" alt="rechts">
-      </div>
-
-      <div v-if="!props.arrowNavigation && showNavigation" class="navigation-dot-wrapper">
-        <div v-for="(dot, index) in Math.min(slideCount, navigationDotsCount)" :key="index" class="dot"
-             :class="{ active: index === activeSlideIndex }" @click="goToSlide(index)"></div>
-      </div>
+  <div class="slider-container" ref="container">
+    <div class="slider" ref="slider">
+      <slot></slot>
+      <slot></slot>
     </div>
+    <button class="control left" @click="prevSlide">‹</button>
+    <button class="control right" @click="nextSlide">›</button>
   </div>
-
 </template>
 
 <script setup lang="ts">
+import { nextTick, onBeforeUnmount, onMounted, ref, watchEffect } from 'vue';
 
-import {computed, type ComputedRef, nextTick, onMounted, onUnmounted, ref, watch, type Ref} from "vue";
-import {defineProps} from "vue";
-import {getImage} from "@/utils/ImageUtils";
+const slider = ref<HTMLElement | null>(null);
+const container = ref<HTMLElement | null>(null);
+const currentIndex = ref(1);
+let slideWidth = 0;
+let slideCount = 0;
+let isTransitioning = false;
+let autoSlideTimer: number | null = null;
+let startX = 0;
+let currentX = 0;
+let isSwiping = false;
+let deltaX = 0;
 
-interface Props {
-  autoRotate?: boolean,
-  rotateInterval?: number
-  arrowNavigation?: boolean
-}
+const minSlideWidth = 300; // Mindestbreite jeder Slide
 
-const props = withDefaults(defineProps<Props>(), {
-  autoRotate: false,
-  rotateInterval: 6000,
-  arrowNavigation: false
-})
-const sliderWrapper: Ref<HTMLDivElement | null> = ref(null);
-const slidesWrapper: Ref<HTMLDivElement | null> = ref(null);
-const combinedSlidesWidth: Ref<number> = ref(0);
-const slideCount: Ref<number> = ref(0);
-const singleSlideWidth: Ref<number> = ref(0);
-const singleSlideHeight: Ref<number> = ref(0);
-const activeSlideIndex: Ref<number> = ref(0);
-const sliderWidth: Ref<number> = ref(0);
-const visibleSlideCount: Ref<number> = ref(0);
-const gapSize = 20;
-let observer: MutationObserver | null = null;
-let autoRotateInterval: number | null = null;
+// Berechne die Anzahl der Slides, die basierend auf der Containerbreite Platz finden
+const calculateSlidesToShow = () => {
+  if (!container.value) return 1;
+  const containerWidth = container.value.clientWidth;
+  return Math.floor(containerWidth / minSlideWidth);
+};
 
-function prevSlide() {
-  stopAutoRotate();
-  if (activeSlideIndex.value > 0) {
-    goToSlide(activeSlideIndex.value - 1);
-  }
-  restartAutoRotate();
-}
+// Funktion, um erste und letzte Slides zu klonen
+const cloneSlides = () => {
+  if (!slider.value) return;
 
-function nextSlide() {
-  stopAutoRotate();
-  if (activeSlideIndex.value < slideCount.value - visibleSlideCount.value) {
-    goToSlide(activeSlideIndex.value + 1);
-  }
-  restartAutoRotate();
-}
+  const slides = Array.from(slider.value.children) as HTMLElement[];
+  const firstSlide = slides[0].cloneNode(true);
+  const lastSlide = slides[slides.length - 1].cloneNode(true);
 
-function restartAutoRotate() {
-  if (props.autoRotate) {
-    setTimeout(() => {
-      startAutoRotate();
-    }, 5000);
-  }
-}
+  slider.value.appendChild(firstSlide);
+  slider.value.insertBefore(lastSlide, slides[0]);
+};
 
-function handleScroll() {
-  stopAutoRotate();
-  const scrollLeft = slidesWrapper.value?.scrollLeft ?? 0;
-  activeSlideIndex.value = Math.round(scrollLeft / (singleSlideWidth.value + gapSize));
-  restartAutoRotate();
-}
+// Berechne die Slide-Breite basierend auf der Anzahl der sichtbaren Slides
+const updateSliderDimensions = () => {
+  if (slider.value && container.value) {
+    const slidesToShow = calculateSlidesToShow();
+    slideWidth = container.value.clientWidth / slidesToShow;
 
+    const slides = Array.from(slider.value.children) as HTMLElement[];
+    slideCount = slides.length;
 
-const showNavigation: ComputedRef<boolean> = computed(() => {
-  return combinedSlidesWidth.value > sliderWidth.value;
-});
+    slider.value.style.width = `${slides.length * slideWidth}px`;
 
-const navigationDotsCount: ComputedRef<number> = computed(() => {
-  const dotsCount = slideCount.value - visibleSlideCount.value + 1;
-  return dotsCount > 0 ? dotsCount : 0;
-})
-
-function goToSlide(index: number) {
-  if (slidesWrapper.value && sliderWidth.value) {
-    const scrollPosition = index * (singleSlideWidth.value + gapSize)
-        - (sliderWidth.value - singleSlideWidth.value) / 2;
-
-    slidesWrapper.value.scrollTo({
-      left: scrollPosition,
-      behavior: 'smooth',
+    slides.forEach(slide => {
+      slide.style.width = `${slideWidth}px`;
     });
-    activeSlideIndex.value = index;
+
+    // Setze den Slider auf die erste echte Slide
+    slider.value.style.transform = `translateX(-${slideWidth}px)`;
+    currentIndex.value = 1;
   }
-}
+};
 
+const nextSlide = () => {
+  if (isTransitioning || !slider.value) return;
+  isTransitioning = true;
+  currentIndex.value++;
+  updateSliderPosition();
+};
 
-function updateSliderDimensions() {
-  nextTick(() => {
-    if (sliderWrapper.value && slidesWrapper.value && slidesWrapper.value.children.length > 0) {
-      slideCount.value = Array.from(slidesWrapper.value.children).length;
-      singleSlideWidth.value = slidesWrapper.value.children[0].clientWidth;
-      singleSlideHeight.value = slidesWrapper.value.children[0].clientHeight;
-      combinedSlidesWidth.value =
-          singleSlideWidth.value * slideCount.value + gapSize * (slideCount.value - 1);
-      sliderWidth.value = sliderWrapper.value.clientWidth;
-      visibleSlideCount.value = Math.floor(
-          (sliderWidth.value + gapSize) / (singleSlideWidth.value + gapSize)
-      );
-      sliderWrapper.value.style.minHeight = `${singleSlideHeight.value}px`;
+const prevSlide = () => {
+  if (isTransitioning || !slider.value) return;
+  isTransitioning = true;
+  currentIndex.value--;
+  updateSliderPosition();
+};
+
+const updateSliderPosition = () => {
+  if (slider.value) {
+    slider.value.style.transition = 'transform 0.5s ease-in-out';
+    slider.value.style.transform = `translateX(-${currentIndex.value * slideWidth}px)`;
+  }
+};
+
+// Behandle das Ende der Transition, um den unendlichen Effekt zu erzeugen
+const handleTransitionEnd = () => {
+  if (!slider.value) return;
+  const totalSlides = slideCount - 2; // Abzüglich der geklonten Slides
+
+  if (currentIndex.value >= totalSlides + 1) {
+    // Wenn am Ende angekommen (bei der geklonten ersten Slide), springe zurück zur echten ersten Slide
+    slider.value.style.transition = 'none';
+    currentIndex.value = 1;
+    slider.value.style.transform = `translateX(-${slideWidth}px)`;
+  } else if (currentIndex.value <= 0) {
+    // Wenn am Anfang angekommen (bei der geklonten letzten Slide), springe zur echten letzten Slide
+    slider.value.style.transition = 'none';
+    currentIndex.value = totalSlides;
+    slider.value.style.transform = `translateX(-${currentIndex.value * slideWidth}px)`;
+  }
+  isTransitioning = false;
+};
+
+const handleTouchStart = (event: TouchEvent) => {
+  if (!slider.value) return;
+  startX = event.touches[0].clientX;
+  currentX = startX;
+  deltaX = 0;
+  isSwiping = true;
+  slider.value.style.transition = 'none';
+};
+
+const handleTouchMove = (event: TouchEvent) => {
+  if (!isSwiping || !slider.value) return;
+  currentX = event.touches[0].clientX;
+  deltaX = currentX - startX;
+  const translateX = (currentIndex.value * slideWidth) - deltaX;
+  slider.value.style.transform = `translateX(-${translateX}px)`;
+};
+
+const handleTouchEnd = () => {
+  if (!isSwiping || !slider.value) return;
+  isSwiping = false;
+
+  if (Math.abs(deltaX) > slideWidth * 0.2) {
+    if (deltaX > 0) {
+      prevSlide();
+    } else {
+      nextSlide();
     }
-  });
-}
-
-
-function observeMutations() {
-  if (slidesWrapper.value) {
-    observer = new MutationObserver(() => {
-      updateSliderDimensions();
-    });
-    observer.observe(slidesWrapper.value, {childList: true, subtree: true});
+  } else {
+    updateSliderPosition();
   }
-}
 
-function startAutoRotate() {
-  if (props.autoRotate) {
-    stopAutoRotate();
-    autoRotateInterval = setInterval(() => {
-      const nextSlideIndex = (activeSlideIndex.value + 1) % slideCount.value;
-      goToSlide(nextSlideIndex);
-    }, props.rotateInterval);
+  slider.value.style.transition = 'transform 0.5s ease-in-out';
+};
+
+const startAutoSlide = () => {
+  if (!autoSlideTimer) {
+    autoSlideTimer = setInterval(() => {
+      nextSlide();
+    }, 3000);
   }
-}
+};
 
-function stopAutoRotate() {
-  if (autoRotateInterval) {
-    clearInterval(autoRotateInterval);
-    autoRotateInterval = null;
+const stopAutoSlide = () => {
+  if (autoSlideTimer) {
+    clearInterval(autoSlideTimer);
+    autoSlideTimer = null;
   }
-}
-
-
+};
 
 onMounted(() => {
   nextTick(() => {
+    cloneSlides(); // Klone die ersten und letzten Slides für den unendlichen Effekt
     updateSliderDimensions();
     window.addEventListener('resize', updateSliderDimensions);
-    observeMutations();
 
-    if (props.autoRotate) {
-      startAutoRotate();
-    }
+    slider.value?.addEventListener('transitionend', handleTransitionEnd);
+    container.value?.addEventListener('touchstart', handleTouchStart);
+    container.value?.addEventListener('touchmove', handleTouchMove);
+    container.value?.addEventListener('touchend', handleTouchEnd);
+
+    startAutoSlide();
   });
 });
 
-
-onUnmounted(() => {
+onBeforeUnmount(() => {
+  stopAutoSlide();
   window.removeEventListener('resize', updateSliderDimensions);
-  stopAutoRotate();
-  if (observer) {
-    observer.disconnect();
-  }
+
+  container.value?.removeEventListener('touchstart', handleTouchStart);
+  container.value?.removeEventListener('touchmove', handleTouchMove);
+  container.value?.removeEventListener('touchend', handleTouchEnd);
 });
 
-
-watch(() => props.autoRotate, (newVal) => {
-  if (newVal) {
-    startAutoRotate();
+watchEffect(() => {
+  if (autoSlideTimer) {
+    startAutoSlide();
   } else {
-    stopAutoRotate();
+    stopAutoSlide();
   }
 });
+
 
 </script>
 
 <style scoped>
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
 
-.outer {
+.slider-container {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
-.arrow-left {
-  position: absolute;
-  left: -40px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.arrow-right{
-  position: absolute;
-  right: -40px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.slider-wrapper {
-  width: 100%;
   overflow: hidden;
+  width: 100%;
+}
+
+.slider {
   display: flex;
-  justify-content: center;
-  flex-direction: column;
+  transition: transform 0.5s ease-in-out;
+  will-change: transform;
 }
 
-.slides-wrapper {
-  display: flex;
-  gap: 30px;
-  transition: transform 0.5s ease;
-  scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
-  overflow-x: scroll;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  align-items: flex-end;
-  height: 100%;
-  box-sizing: border-box;
-  padding-top: 16px;
+.slider > * {
+  flex-shrink: 0;
 }
 
-.slides-wrapper > * {
-  flex: 0 0 auto;
-  scroll-snap-align: center;
-}
-
-.slides-wrapper::-webkit-scrollbar {
-  display: none;
-}
-
-.slides-wrapper > * {
-  flex: 0 0 auto;
-}
-
-.navigation-dot-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.dot {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  box-sizing: border-box;
-  background-color: var(--beige);
+.control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.7);
+  border: none;
   cursor: pointer;
-  margin: 0 5px;
-  transition: all 500ms ease;
+  padding: 10px;
+  z-index: 10;
 }
 
-.dot.active {
-  background-color: var(--dark-green)
+.left {
+  left: 10px;
 }
 
-
-
-
-.icon-wrapper {
-  z-index: 5;
-  cursor: pointer;
-  width: 80px;
-  height: 80px;
-
-  img {
-    width: 20px;
-    height: 20px;
-  }
-}
-
-
-@media (min-width: 740px) {
-  .slides-wrapper {
-    height: 100%;
-  }
+.right {
+  right: 10px;
 }
 </style>

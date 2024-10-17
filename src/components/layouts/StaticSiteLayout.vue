@@ -15,10 +15,10 @@
           <p class="main-text1" v-html="mainText1"></p>
         </div>
       </div>
-      <div ref="bottomWrapper"  class="bottom-wrapper">
+      <div ref="bottomWrapper" class="bottom-wrapper">
         <p class="main-text2" v-html="mainText2"></p>
         <div class="image-wrapper">
-          <img  :src="getImage(image2)" alt="image">
+          <img :src="getImage(image2)" alt="image">
         </div>
       </div>
     </section>
@@ -30,13 +30,8 @@
     </section>
 
     <section class="quote-section">
-      <DynamicSlider
-          :auto-rotate="true"
-          :arrow-navigation="true">
-        <div
-            v-for="(quote, index) in quotes"
-            :key="index"
-            class="quote">
+      <DynamicSlider :autoSlide="true" :slideInterval="5000">
+        <div v-for="(quote, index) in quotes" :key="index" class="slide">
           <div class="image-wrapper">
             <img :src="getImage('ic_quote.png')" alt="image">
           </div>
@@ -44,8 +39,10 @@
           <p class="author"> - {{ quote.author }}</p>
         </div>
       </DynamicSlider>
-    </section>
 
+
+
+    </section>
     <slot></slot>
   </div>
 
@@ -117,6 +114,7 @@ onMounted(() => {
       transform: translateX(0%);
     }
   }
+
   .bottom-wrapper {
     display: flex;
     flex-direction: column;
@@ -154,8 +152,7 @@ onMounted(() => {
   }
 }
 
-.quote-section {
-  .quote {
+  .slide {
     width: 320px;
     display: flex;
     flex-direction: column;
@@ -171,7 +168,7 @@ onMounted(() => {
     }
 
     .text {
-      width: 90%;
+      width: 80%;
       font-size: 20px;
       font-style: italic;
       font-family: Bitter, sans-serif;
@@ -181,7 +178,7 @@ onMounted(() => {
       font-size: 16px;
     }
   }
-}
+
 
 
 @media (min-width: 740px) {
@@ -272,7 +269,6 @@ onMounted(() => {
 
   .quote-section {
     .quote {
-      width: 860px;
     }
   }
 }
