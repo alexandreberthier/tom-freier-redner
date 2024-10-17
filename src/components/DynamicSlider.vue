@@ -1,16 +1,26 @@
 <template>
   <div class="slider-container" ref="container">
-    <div class="slider" ref="slider">
-      <slot></slot>
+    <div role="slider" class="slider" ref="slider">
       <slot></slot>
     </div>
-    <button class="control left" @click="prevSlide">‹</button>
-    <button class="control right" @click="nextSlide">›</button>
+    <div class="controls">
+      <div @click="prevSlide" class="button" role="button">
+        <div class="icon-wrapper">
+          <img :src="getImage('ic_chevron_white_left.png')" alt="chevron links">
+        </div>
+      </div>
+      <div @click="nextSlide" class="button" role="button">
+        <div class="icon-wrapper">
+          <img :src="getImage('ic_chevron_white_right.png')" alt="chevron rechts">
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { nextTick, onBeforeUnmount, onMounted, ref, watchEffect } from 'vue';
+import {nextTick, onBeforeUnmount, onMounted, ref} from 'vue';
+import {getImage} from "@/utils/ImageUtils";
 
 const slider = ref<HTMLElement | null>(null);
 const container = ref<HTMLElement | null>(null);
@@ -29,32 +39,31 @@ const getDynamicSlideWidth = () => {
   const viewportWidth = window.innerWidth;
 
   if (viewportWidth >= 1920) {
-    return 1100; // 1100px ab 1920px Viewport
+    return 1100;
   } else if (viewportWidth >= 1200) {
-    return 800; // 800px ab 1200px Viewport
+    return 800;
   } else if (viewportWidth >= 740) {
-    return 600; // 600px ab 740px Viewport
+    return 600;
   } else {
-    return 300; // 300px standardmäßig
+    return 300;
   }
 };
 
-// Berechne die Anzahl der Slides, die basierend auf der Containerbreite Platz finden
+// Berechne die Anzahl der sichtbaren Slides
 const calculateSlidesToShow = () => {
   if (!container.value) return 1;
   const containerWidth = container.value.clientWidth;
-  const minSlideWidth = getDynamicSlideWidth(); // Mindestbreite dynamisch anpassen
+  const minSlideWidth = getDynamicSlideWidth();
   return Math.floor(containerWidth / minSlideWidth);
 };
 
-// Funktion, um die ersten und letzten Slides so zu klonen, dass der Übergang flüssig bleibt
+// Klone die ersten und letzten Slides für den unendlichen Effekt
 const cloneSlides = () => {
   if (!slider.value) return;
 
   const slides = Array.from(slider.value.children) as HTMLElement[];
   const slidesToShow = calculateSlidesToShow();
 
-  // Klone die Anzahl der Slides, die der Anzahl der sichtbaren Slides entspricht
   for (let i = 0; i < slidesToShow; i++) {
     const firstSlideClone = slides[i].cloneNode(true);
     const lastSlideClone = slides[slides.length - 1 - i].cloneNode(true);
@@ -64,7 +73,7 @@ const cloneSlides = () => {
   }
 };
 
-// Berechne die Slide-Breite basierend auf der Anzahl der sichtbaren Slides
+// Update der Slider-Dimensionen
 const updateSliderDimensions = () => {
   if (slider.value && container.value) {
     const slidesToShow = calculateSlidesToShow();
@@ -79,12 +88,12 @@ const updateSliderDimensions = () => {
       slide.style.width = `${slideWidth}px`;
     });
 
-    // Setze den Slider auf die erste echte Slide
     slider.value.style.transform = `translateX(-${slideWidth * slidesToShow}px)`;
     currentIndex.value = slidesToShow;
   }
 };
 
+// Behandle das Wechseln zur nächsten Slide
 const nextSlide = () => {
   if (isTransitioning || !slider.value) return;
   isTransitioning = true;
@@ -92,6 +101,7 @@ const nextSlide = () => {
   updateSliderPosition();
 };
 
+// Behandle das Wechseln zur vorherigen Slide
 const prevSlide = () => {
   if (isTransitioning || !slider.value) return;
   isTransitioning = true;
@@ -99,6 +109,7 @@ const prevSlide = () => {
   updateSliderPosition();
 };
 
+// Aktualisiere die Slider-Position
 const updateSliderPosition = () => {
   if (slider.value) {
     slider.value.style.transition = 'transform 0.5s ease-in-out';
@@ -110,24 +121,24 @@ const updateSliderPosition = () => {
 const handleTransitionEnd = () => {
   if (!slider.value) return;
   const slidesToShow = calculateSlidesToShow();
-  const totalSlides = slideCount - slidesToShow * 2; // Abzüglich der geklonten Slides
+  const totalSlides = slideCount - slidesToShow * 2;
 
   if (currentIndex.value >= totalSlides + slidesToShow) {
-    // Wenn am Ende angekommen (bei der geklonten ersten Slide), springe zurück zur echten ersten Slide
     slider.value.style.transition = 'none';
     currentIndex.value = slidesToShow;
     slider.value.style.transform = `translateX(-${slideWidth * slidesToShow}px)`;
   } else if (currentIndex.value <= 0) {
-    // Wenn am Anfang angekommen (bei der geklonten letzten Slide), springe zur echten letzten Slide
     slider.value.style.transition = 'none';
     currentIndex.value = totalSlides;
     slider.value.style.transform = `translateX(-${currentIndex.value * slideWidth}px)`;
   }
+  // Transition beendet, Steuerung freigeben
   isTransitioning = false;
 };
 
+// Touch-Events für mobiles Swiping
 const handleTouchStart = (event: TouchEvent) => {
-  if (!slider.value) return;
+  if (isTransitioning || !slider.value) return;
   startX = event.touches[0].clientX;
   currentX = startX;
   deltaX = 0;
@@ -160,6 +171,7 @@ const handleTouchEnd = () => {
   slider.value.style.transition = 'transform 0.5s ease-in-out';
 };
 
+// Auto-Slide-Handling
 const startAutoSlide = () => {
   if (!autoSlideTimer) {
     autoSlideTimer = setInterval(() => {
@@ -201,12 +213,16 @@ onBeforeUnmount(() => {
 
 </script>
 
+
 <style scoped>
 
 .slider-container {
   position: relative;
   overflow: hidden;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 }
 
 .slider {
@@ -219,22 +235,29 @@ onBeforeUnmount(() => {
   flex-shrink: 0;
 }
 
-.control {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(255, 255, 255, 0.7);
-  border: none;
-  cursor: pointer;
-  padding: 10px;
-  z-index: 10;
+.controls {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 50px;
+
+  .button {
+    background-color: var(--beige);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+
+    .icon-wrapper {
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
 }
 
-.left {
-  left: 10px;
-}
-
-.right {
-  right: 10px;
-}
 </style>
