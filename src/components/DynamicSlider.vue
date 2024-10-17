@@ -24,25 +24,44 @@ let currentX = 0;
 let isSwiping = false;
 let deltaX = 0;
 
-const minSlideWidth = 300; // Mindestbreite jeder Slide
+// Funktion zur dynamischen Anpassung der Mindestbreite der Slides basierend auf dem Viewport
+const getDynamicSlideWidth = () => {
+  const viewportWidth = window.innerWidth;
+
+  if (viewportWidth >= 1920) {
+    return 1100; // 1100px ab 1920px Viewport
+  } else if (viewportWidth >= 1200) {
+    return 800; // 800px ab 1200px Viewport
+  } else if (viewportWidth >= 740) {
+    return 600; // 600px ab 740px Viewport
+  } else {
+    return 300; // 300px standardmäßig
+  }
+};
 
 // Berechne die Anzahl der Slides, die basierend auf der Containerbreite Platz finden
 const calculateSlidesToShow = () => {
   if (!container.value) return 1;
   const containerWidth = container.value.clientWidth;
+  const minSlideWidth = getDynamicSlideWidth(); // Mindestbreite dynamisch anpassen
   return Math.floor(containerWidth / minSlideWidth);
 };
 
-// Funktion, um erste und letzte Slides zu klonen
+// Funktion, um die ersten und letzten Slides so zu klonen, dass der Übergang flüssig bleibt
 const cloneSlides = () => {
   if (!slider.value) return;
 
   const slides = Array.from(slider.value.children) as HTMLElement[];
-  const firstSlide = slides[0].cloneNode(true);
-  const lastSlide = slides[slides.length - 1].cloneNode(true);
+  const slidesToShow = calculateSlidesToShow();
 
-  slider.value.appendChild(firstSlide);
-  slider.value.insertBefore(lastSlide, slides[0]);
+  // Klone die Anzahl der Slides, die der Anzahl der sichtbaren Slides entspricht
+  for (let i = 0; i < slidesToShow; i++) {
+    const firstSlideClone = slides[i].cloneNode(true);
+    const lastSlideClone = slides[slides.length - 1 - i].cloneNode(true);
+
+    slider.value.appendChild(firstSlideClone);
+    slider.value.insertBefore(lastSlideClone, slides[0]);
+  }
 };
 
 // Berechne die Slide-Breite basierend auf der Anzahl der sichtbaren Slides
@@ -61,8 +80,8 @@ const updateSliderDimensions = () => {
     });
 
     // Setze den Slider auf die erste echte Slide
-    slider.value.style.transform = `translateX(-${slideWidth}px)`;
-    currentIndex.value = 1;
+    slider.value.style.transform = `translateX(-${slideWidth * slidesToShow}px)`;
+    currentIndex.value = slidesToShow;
   }
 };
 
@@ -90,13 +109,14 @@ const updateSliderPosition = () => {
 // Behandle das Ende der Transition, um den unendlichen Effekt zu erzeugen
 const handleTransitionEnd = () => {
   if (!slider.value) return;
-  const totalSlides = slideCount - 2; // Abzüglich der geklonten Slides
+  const slidesToShow = calculateSlidesToShow();
+  const totalSlides = slideCount - slidesToShow * 2; // Abzüglich der geklonten Slides
 
-  if (currentIndex.value >= totalSlides + 1) {
+  if (currentIndex.value >= totalSlides + slidesToShow) {
     // Wenn am Ende angekommen (bei der geklonten ersten Slide), springe zurück zur echten ersten Slide
     slider.value.style.transition = 'none';
-    currentIndex.value = 1;
-    slider.value.style.transform = `translateX(-${slideWidth}px)`;
+    currentIndex.value = slidesToShow;
+    slider.value.style.transform = `translateX(-${slideWidth * slidesToShow}px)`;
   } else if (currentIndex.value <= 0) {
     // Wenn am Anfang angekommen (bei der geklonten letzten Slide), springe zur echten letzten Slide
     slider.value.style.transition = 'none';
@@ -157,7 +177,7 @@ const stopAutoSlide = () => {
 
 onMounted(() => {
   nextTick(() => {
-    cloneSlides(); // Klone die ersten und letzten Slides für den unendlichen Effekt
+    cloneSlides();
     updateSliderDimensions();
     window.addEventListener('resize', updateSliderDimensions);
 
@@ -178,15 +198,6 @@ onBeforeUnmount(() => {
   container.value?.removeEventListener('touchmove', handleTouchMove);
   container.value?.removeEventListener('touchend', handleTouchEnd);
 });
-
-watchEffect(() => {
-  if (autoSlideTimer) {
-    startAutoSlide();
-  } else {
-    stopAutoSlide();
-  }
-});
-
 
 </script>
 

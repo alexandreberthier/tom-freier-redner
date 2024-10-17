@@ -39,9 +39,6 @@
           <p class="author"> - {{ quote.author }}</p>
         </div>
       </DynamicSlider>
-
-
-
     </section>
     <slot></slot>
   </div>
@@ -197,19 +194,30 @@ onMounted(() => {
     }
   }
 
-  .quote-section {
-    .quote {
-      width: 620px;
+  .slide {
+    width: 620px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+    text-align: center;
 
-      .text {
-        font-size: 24px;
-        font-style: italic;
-        font-family: Playfair, sans-serif;
+    .image-wrapper {
+      img {
+        width: 50px;
+        height: 50px;
       }
+    }
 
-      .author {
-        font-size: 18px;
-      }
+    .text {
+      width: 80%;
+      font-size: 24px;
+      font-style: italic;
+      font-family: Bitter, sans-serif;
+    }
+
+    .author {
+      font-size: 18px;
     }
   }
 }
