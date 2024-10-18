@@ -2,7 +2,7 @@
   <StaticSiteLayout
       :header="translations.funeralHeader"
       :subHeaderText="translations.funeralSubText"
-      :image1="'img_tom9.jpeg'"
+      :image1="'img_tom18.jpeg'"
       :image2="'img_tom5-min.webp'"
       :main-text-header="translations.funeralMainTextHeader"
       :mainText1="translations.funeralMainText1"

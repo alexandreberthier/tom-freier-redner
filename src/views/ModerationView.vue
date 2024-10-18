@@ -3,14 +3,16 @@
       header="Besondere Feiern erfordern besondere Worte"
       subHeaderText="Hochzeiten, Lebensfeiern und Kinderwillkommensfeste beschreiben meist neue Abschnitte im Leben von Menschen – natürlich gibt es noch weitere Momente oder Ereignisse, die es wert sind, gemeinsam anzuhalten. Gerne begleite ich jegliche Art von Feiern, Zeremonien oder Veranstaltungen."
       :image1="'img_tom15.jpeg'"
-      :image2="'img_tom16.jpeg'"
+      :image2="'img_tom_17.png'"
       main-text-header="Firmenfeiern & Jubiläen"
       mainText1="
 Die wichtigste und meist gefragteste „Ressource“ in einem Unternehmen ist der Mensch selbst. Gute Mitarbeiter*innen sind schwer zu finden und noch schwieriger zu halten. Firmenfeiern & Jubiläen sind Arten Mitarbeiter*innen wertzuschätzen und die Wirkung von Wertschätzungen dürfen nicht unterschätzt werden. Aus diesem Grund würde es mich freuen, wenn ich eure Firmenfeier oder Jubiläen mit meinen Worten und meiner Persönlichkeit gestalten, sowie begleiten darf.
 "
-      mainText2="Moderation von Veranstaltungen
+      mainText2="
 Ihr habt eine Veranstaltung geplant, aber noch nicht den richtigen Moderator gefunden?
-Bei mir seid ihr richtig – durch mein humorvolles, offenes & empathisches Wesen hole ich eure Gäste ab, nehme sie an der Hand und führe sie durch eure Veranstaltung.
+Bei mir seid ihr richtig – durch mein humorvolles, offenes & empathisches Wesen hole ich eure Gäste ab, nehme sie an der Hand und führe sie durch eure Veranstaltung. <b> Erneuerung von Eheversprechen </b> <br>
+Nach Jahren des gemeinsamen Lebens, finde ich es schön, wenn Eheversprechen erneuert werden. Immerhin hat man gemeinsam sehr schöne, aber auch schwere Zeiten erlebt, da ist es doch schön, sich die gegenseitige Liebe erneut zu gestehen. Ein selbstgeschriebenes Gelöbnis, der richtige Rahmen und natürlich meine Worte, sorgen für eine unvergessliche Ehrung eures Versprechens.
+
 "
       :faqs="faqs"
       :quotes="quotes"

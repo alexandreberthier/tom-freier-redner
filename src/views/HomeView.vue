@@ -296,7 +296,7 @@ const services: ComputedRef<Service[]> = computed(() => [
     pathName: 'child-celebration'
   },
   {
-    image: 'img_tom7-min.webp',
+    image: 'img_tom18.jpeg',
     alt: translations.value.funeralHeader,
     heading: translations.value.funeralHeader,
     text: translations.value.homeServiceCardText3,
