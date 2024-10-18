@@ -30,7 +30,7 @@
     </section>
 
     <section class="quote-section">
-      <DynamicSlider :autoSlide="true" :slideInterval="5000">
+      <DynamicSlider :auto-slide="true">
         <div v-for="(quote, index) in quotes" :key="index" class="slide">
           <div class="image-wrapper">
             <img :src="getImage('ic_quote.png')" alt="image">
@@ -149,8 +149,53 @@ onMounted(() => {
   }
 }
 
+
+.slide {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+  text-align: center;
+
+  .image-wrapper {
+    img {
+      width: 50px;
+      height: 50px;
+    }
+  }
+
+  .text {
+    width: 80%;
+    font-size: 20px;
+    font-style: italic;
+    font-family: Bitter, sans-serif;
+  }
+
+  .author {
+    font-size: 16px;
+  }
+}
+
+
+@media (min-width: 740px) {
+
+  .main-section {
+    .image-wrapper {
+      height: 350px;
+      width: 100%;
+
+      img {
+        min-width: 620px;
+        height: 350px;
+        border-radius: 14px;
+        object-fit: cover;
+      }
+    }
+  }
+
   .slide {
-    width: 320px;
+    min-width: 620px;
     display: flex;
     flex-direction: column;
     gap: 32px;
@@ -173,51 +218,6 @@ onMounted(() => {
 
     .author {
       font-size: 16px;
-    }
-  }
-
-
-
-@media (min-width: 740px) {
-
-  .main-section {
-    .image-wrapper {
-      height: 350px;
-      width: 100%;
-
-      img {
-        width: 620px;
-        height: 350px;
-        border-radius: 14px;
-        object-fit: cover;
-      }
-    }
-  }
-
-  .slide {
-    width: 620px;
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-    align-items: center;
-    text-align: center;
-
-    .image-wrapper {
-      img {
-        width: 50px;
-        height: 50px;
-      }
-    }
-
-    .text {
-      width: 80%;
-      font-size: 24px;
-      font-style: italic;
-      font-family: Bitter, sans-serif;
-    }
-
-    .author {
-      font-size: 18px;
     }
   }
 }
@@ -268,6 +268,7 @@ onMounted(() => {
       width: 415px;
 
       img {
+        min-width: unset;
         width: 415px;
         height: 380px;
         border-radius: 14px;
@@ -275,10 +276,39 @@ onMounted(() => {
     }
   }
 
-  .quote-section {
-    .quote {
+  .slide {
+    min-width: 860px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+    text-align: center;
+
+    .image-wrapper {
+      img {
+        width: 50px;
+        height: 50px;
+      }
+    }
+
+    .text {
+      width: 80%;
+      font-size: 20px;
+      font-style: italic;
+      font-family: Bitter, sans-serif;
+    }
+
+    .author {
+      font-size: 16px;
     }
   }
+
+  .quote-section {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+
 }
 
 @media (min-width: 1920px) {
@@ -298,6 +328,7 @@ onMounted(() => {
 
   .main-section {
     margin: 0 auto;
+    gap: 60px;
 
     h3 {
       width: 600px;
@@ -318,19 +349,6 @@ onMounted(() => {
     }
   }
 
-  .quote-section {
-    .quote {
-      width: 1260px;
-
-      .text {
-        font-size: 26px;
-      }
-
-      .author {
-        font-size: 20px;
-      }
-    }
-  }
 }
 
 

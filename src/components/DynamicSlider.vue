@@ -1,183 +1,139 @@
 <template>
   <div class="slider-container" ref="container">
-    <div role="slider" class="slider" ref="slider">
-      <slot></slot>
+    <div class="slider-wrapper" ref="wrapper">
+      <div class="slider" ref="slider" @transitionend="handleTransitionEnd">
+        <slot></slot>
+      </div>
     </div>
-    <div class="controls">
-      <div @click="prevSlide" class="button" role="button">
-        <div class="icon-wrapper">
-          <img :src="getImage('ic_chevron_white_left.png')" alt="chevron links">
-        </div>
-      </div>
-      <div @click="nextSlide" class="button" role="button">
-        <div class="icon-wrapper">
-          <img :src="getImage('ic_chevron_white_right.png')" alt="chevron rechts">
-        </div>
-      </div>
+    <div v-if="!allSlidesVisible" class="controls">
+      <button @click="prevSlide" class="control-btn">Prev</button>
+      <button @click="nextSlide" class="control-btn">Next</button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import {nextTick, onBeforeUnmount, onMounted, ref} from 'vue';
-import {getImage} from "@/utils/ImageUtils";
+import { ref, onMounted, nextTick, onBeforeUnmount } from 'vue';
 
+// Props
+const props = defineProps<{
+  autoSlide: boolean;
+}>();
+
+// Refs
 const slider = ref<HTMLElement | null>(null);
+const wrapper = ref<HTMLElement | null>(null);
 const container = ref<HTMLElement | null>(null);
 const currentIndex = ref(1);
+let autoSlideTimer: number | null = null;
 let slideWidth = 0;
 let slideCount = 0;
 let isTransitioning = false;
-let autoSlideTimer: number | null = null;
-let startX = 0;
-let currentX = 0;
-let isSwiping = false;
-let deltaX = 0;
+const allSlidesVisible = ref(false);
 
-// Funktion zur dynamischen Anpassung der Mindestbreite der Slides basierend auf dem Viewport
-const getDynamicSlideWidth = () => {
-  const viewportWidth = window.innerWidth;
-
-  if (viewportWidth >= 1920) {
-    return 1100;
-  } else if (viewportWidth >= 1200) {
-    return 800;
-  } else if (viewportWidth >= 740) {
-    return 600;
-  } else {
-    return 300;
-  }
-};
-
-// Berechne die Anzahl der sichtbaren Slides
-const calculateSlidesToShow = () => {
-  if (!container.value) return 1;
-  const containerWidth = container.value.clientWidth;
-  const minSlideWidth = getDynamicSlideWidth();
-  return Math.floor(containerWidth / minSlideWidth);
-};
-
-// Klone die ersten und letzten Slides für den unendlichen Effekt
+// Clone slides for infinite scrolling
 const cloneSlides = () => {
   if (!slider.value) return;
 
   const slides = Array.from(slider.value.children) as HTMLElement[];
-  const slidesToShow = calculateSlidesToShow();
+  const firstSlideClone = slides[0].cloneNode(true);
+  const lastSlideClone = slides[slides.length - 1].cloneNode(true);
 
-  for (let i = 0; i < slidesToShow; i++) {
-    const firstSlideClone = slides[i].cloneNode(true);
-    const lastSlideClone = slides[slides.length - 1 - i].cloneNode(true);
+  slider.value.appendChild(firstSlideClone);
+  slider.value.insertBefore(lastSlideClone, slides[0]);
+};
 
-    slider.value.appendChild(firstSlideClone);
-    slider.value.insertBefore(lastSlideClone, slides[0]);
+// Remove clones when resizing if all slides are visible
+const removeClonedSlides = () => {
+  if (!slider.value) return;
+
+  const slides = Array.from(slider.value.children) as HTMLElement[];
+  if (slides.length > slideCount) {
+    slider.value.removeChild(slides[slides.length - 1]); // Remove last clone
+    slider.value.removeChild(slides[0]); // Remove first clone
   }
 };
 
-// Update der Slider-Dimensionen
+// Calculate visible slides and update slide dimensions
 const updateSliderDimensions = () => {
-  if (slider.value && container.value) {
-    const slidesToShow = calculateSlidesToShow();
-    slideWidth = container.value.clientWidth / slidesToShow;
+  if (!wrapper.value || !slider.value || !container.value) return;
 
-    const slides = Array.from(slider.value.children) as HTMLElement[];
-    slideCount = slides.length;
+  const containerWidth = container.value.clientWidth;
+  const slides = Array.from(slider.value.children) as HTMLElement[];
+  slideCount = slides.length;
 
-    slider.value.style.width = `${slides.length * slideWidth}px`;
+  // Dynamically calculate the slide width based on visible area
+  slideWidth = slides[0].clientWidth;
+  const visibleSlides = Math.floor(containerWidth / (slideWidth + 20)); // 20px gap
 
-    slides.forEach(slide => {
-      slide.style.width = `${slideWidth}px`;
-    });
+  allSlidesVisible.value = slideCount <= visibleSlides + 2; // +2 because of cloned slides
 
-    slider.value.style.transform = `translateX(-${slideWidth * slidesToShow}px)`;
-    currentIndex.value = slidesToShow;
+  // Remove clones if all slides are visible
+  if (allSlidesVisible.value) {
+    removeClonedSlides();
+  } else {
+    cloneSlides();
   }
+
+  // Set slider width
+  slider.value.style.width = `${(slideWidth + 20) * slideCount}px`; // Include gap
+
+  // Recalculate the current index based on the new dimensions
+  currentIndex.value = Math.min(currentIndex.value, slideCount - 2);
+
+  // Reposition the slider after resizing
+  updateSliderPosition();
 };
 
-// Behandle das Wechseln zur nächsten Slide
+// Move to the next slide
 const nextSlide = () => {
-  if (isTransitioning || !slider.value) return;
+  if (isTransitioning || !slider.value || allSlidesVisible.value) return;
   isTransitioning = true;
   currentIndex.value++;
   updateSliderPosition();
 };
 
-// Behandle das Wechseln zur vorherigen Slide
+// Move to the previous slide
 const prevSlide = () => {
-  if (isTransitioning || !slider.value) return;
+  if (isTransitioning || !slider.value || allSlidesVisible.value) return;
   isTransitioning = true;
   currentIndex.value--;
   updateSliderPosition();
 };
 
-// Aktualisiere die Slider-Position
+// Update slider position with smooth transition
 const updateSliderPosition = () => {
-  if (slider.value) {
-    slider.value.style.transition = 'transform 0.5s ease-in-out';
-    slider.value.style.transform = `translateX(-${currentIndex.value * slideWidth}px)`;
-  }
+  if (!slider.value) return;
+  slider.value.style.transition = 'transform 0.5s ease-in-out';
+  slider.value.style.transform = `translateX(-${(currentIndex.value * (slideWidth + 20))}px)`; // Include gap
 };
 
-// Behandle das Ende der Transition, um den unendlichen Effekt zu erzeugen
+// Handle transition end for infinite effect
 const handleTransitionEnd = () => {
   if (!slider.value) return;
-  const slidesToShow = calculateSlidesToShow();
-  const totalSlides = slideCount - slidesToShow * 2;
 
-  if (currentIndex.value >= totalSlides + slidesToShow) {
+  const slides = Array.from(slider.value.children) as HTMLElement[];
+  const realSlideCount = slides.length - 2; // Subtract the two cloned slides
+
+  if (currentIndex.value >= realSlideCount + 1) {
     slider.value.style.transition = 'none';
-    currentIndex.value = slidesToShow;
-    slider.value.style.transform = `translateX(-${slideWidth * slidesToShow}px)`;
+    currentIndex.value = 1;
+    slider.value.style.transform = `translateX(-${slideWidth + 20}px)`; // Include gap
   } else if (currentIndex.value <= 0) {
     slider.value.style.transition = 'none';
-    currentIndex.value = totalSlides;
-    slider.value.style.transform = `translateX(-${currentIndex.value * slideWidth}px)`;
+    currentIndex.value = realSlideCount;
+    slider.value.style.transform = `translateX(-${(slideWidth + 20) * realSlideCount}px)`; // Include gap
   }
-  // Transition beendet, Steuerung freigeben
+
   isTransitioning = false;
 };
 
-// Touch-Events für mobiles Swiping
-const handleTouchStart = (event: TouchEvent) => {
-  if (isTransitioning || !slider.value) return;
-  startX = event.touches[0].clientX;
-  currentX = startX;
-  deltaX = 0;
-  isSwiping = true;
-  slider.value.style.transition = 'none';
-};
-
-const handleTouchMove = (event: TouchEvent) => {
-  if (!isSwiping || !slider.value) return;
-  currentX = event.touches[0].clientX;
-  deltaX = currentX - startX;
-  const translateX = (currentIndex.value * slideWidth) - deltaX;
-  slider.value.style.transform = `translateX(-${translateX}px)`;
-};
-
-const handleTouchEnd = () => {
-  if (!isSwiping || !slider.value) return;
-  isSwiping = false;
-
-  if (Math.abs(deltaX) > slideWidth * 0.2) {
-    if (deltaX > 0) {
-      prevSlide();
-    } else {
-      nextSlide();
-    }
-  } else {
-    updateSliderPosition();
-  }
-
-  slider.value.style.transition = 'transform 0.5s ease-in-out';
-};
-
-// Auto-Slide-Handling
+// Auto slide functionality
 const startAutoSlide = () => {
-  if (!autoSlideTimer) {
-    autoSlideTimer = setInterval(() => {
-      nextSlide();
-    }, 3000);
-  }
+  if (autoSlideTimer) return;
+  autoSlideTimer = setInterval(() => {
+    nextSlide();
+  }, 3000); // Adjust slide interval here
 };
 
 const stopAutoSlide = () => {
@@ -187,77 +143,59 @@ const stopAutoSlide = () => {
   }
 };
 
+// Mounted hook
 onMounted(() => {
   nextTick(() => {
     cloneSlides();
     updateSliderDimensions();
     window.addEventListener('resize', updateSliderDimensions);
 
-    slider.value?.addEventListener('transitionend', handleTransitionEnd);
-    container.value?.addEventListener('touchstart', handleTouchStart);
-    container.value?.addEventListener('touchmove', handleTouchMove);
-    container.value?.addEventListener('touchend', handleTouchEnd);
-
-    startAutoSlide();
+    if (props.autoSlide) {
+      startAutoSlide();
+    }
   });
 });
 
+// Cleanup before unmounting
 onBeforeUnmount(() => {
   stopAutoSlide();
   window.removeEventListener('resize', updateSliderDimensions);
-
-  container.value?.removeEventListener('touchstart', handleTouchStart);
-  container.value?.removeEventListener('touchmove', handleTouchMove);
-  container.value?.removeEventListener('touchend', handleTouchEnd);
 });
 
 </script>
 
-
 <style scoped>
-
 .slider-container {
   position: relative;
   overflow: hidden;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
+}
+
+.slider-wrapper {
+  width: 100%;
+  overflow: hidden;
 }
 
 .slider {
   display: flex;
   transition: transform 0.5s ease-in-out;
-  will-change: transform;
-}
-
-.slider > * {
-  flex-shrink: 0;
+  gap: 20px; /* 20px gap between slides */
 }
 
 .controls {
   display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  gap: 50px;
-
-  .button {
-    background-color: var(--beige);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 35px;
-    height: 35px;
-    cursor: pointer;
-
-    .icon-wrapper {
-      img {
-        width: 20px;
-        height: 20px;
-      }
-    }
-  }
+  justify-content: space-between;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  transform: translateY(-50%);
 }
 
+.control-btn {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
 </style>

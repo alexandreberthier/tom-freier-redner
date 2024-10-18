@@ -1,5 +1,5 @@
 <template>
-  <div class="parallax-container">
+  <!--<div class="parallax-container">
     <div class="background">
       <div class="overlay"></div>
     </div>
@@ -7,7 +7,7 @@
       <h1 :style="{ transform: `translateY(-${parallaxYHeader}px)` }" >Mit den Gästen, statt vor den Gästen</h1>
     </header>
       <p class="text-header" :style="{ transform: `translateY(${parallaxYText}px)` }">{{ translations.homeSubText }}</p>
-  </div>
+  </div> -->
 
   <div class="content-wrapper">
     <section ref="hero" class="hero fade-up">
@@ -63,12 +63,8 @@
 
   <section class="slider-section">
     <h2>{{ translations.homeServiceSectionHeader }}</h2>
-    <DynamicSlider :auto-rotate="false">
-      <ServiceCard
-          v-for="(service, index) in services"
-          :key="index"
-          :service="service"
-      />
+    <DynamicSlider :auto-slide="false">
+      <ServiceCard v-for="(service, index) in services" :key="index" :service="service" />
     </DynamicSlider>
   </section>
 
@@ -178,10 +174,9 @@ const parallaxYText = ref(0);
 function handleScroll() {
   let scrollPosition = window.scrollY;
 
-  parallaxYHeader.value = Math.min(scrollPosition * 0.3, 200);  // max. Y-Wert für Header
-  parallaxYText.value = Math.min(scrollPosition * 0.2, 150);    // max. Y-Wert für Text
+  parallaxYHeader.value = Math.min(scrollPosition * 0.3, 200);
+  parallaxYText.value = Math.min(scrollPosition * 0.2, 150);
 }
-
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll);
@@ -715,7 +710,7 @@ header {
   }
 
   .slider-section {
-    width: 970px;
+    width: 950px;
   }
 }
 
