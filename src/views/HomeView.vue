@@ -267,14 +267,14 @@ const textSection = ref(null)
 
 const contactOptions: Ref<ContactOption[]> = ref([
   {
-    href: 'mailto:hallo@freier-redner-tom.at',
-    text: 'hallo@freier-redner-tom.at',
+    href: 'mailto:tom.s@freieredner.at',
+    text: 'tom.s@freieredner.at',
     image: 'ic_email.png',
     alt: 'email'
   },
   {
-    href: 'tel:+436701234567',
-    text: '+436701234567',
+    href: 'tel:+436602802923',
+    text: '+436602802923',
     image: 'ic_telephone.png',
     alt: 'telefon'
   }
@@ -289,7 +289,7 @@ const services: ComputedRef<Service[]> = computed(() => [
     pathName: 'wedding'
   },
   {
-    image: 'img_tom4-min.webp',
+    image: 'img_tom12.jpeg',
     alt: translations.value.childCelebrationHeader,
     heading: translations.value.childCelebrationHeader,
     text: translations.value.homeServiceCardText2,

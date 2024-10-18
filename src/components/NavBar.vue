@@ -136,6 +136,10 @@ const links: ComputedRef<Link[]> = computed(() => [
   {
     linkText: translations.value.funeralHeader,
     pathName: 'celebrations'
+  },
+  {
+    linkText: 'Feier und Moderation',
+    pathName: 'moderation'
   }
 ])
 </script>

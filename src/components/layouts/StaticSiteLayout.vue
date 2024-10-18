@@ -228,7 +228,7 @@ onMounted(() => {
     flex-direction: row;
     gap: 32px;
     justify-content: center;
-    align-items: flex-end;
+    align-items: flex-start;
 
     h1 {
       width: 415px;

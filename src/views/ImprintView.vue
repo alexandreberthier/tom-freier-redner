@@ -11,19 +11,14 @@
     </StaticSection>
     <StaticSection section-header="Kontakt:">
       <div class="text-section">
-        <p>Telefon: +43 660 1234567</p>
-        <p>E-Mail: tom.s@reierredner.at</p>
+        <p>Telefon: +436602802923</p>
+        <p>E-Mail: tom.s@freieredner.at</p>
         <p>Website: www.freier-redner-tom.at</p>
       </div>
     </StaticSection>
     <StaticSection section-header="Unternehmensform:">
       <div class="text-section">
-        <p>Einzelunternehmen</p>
-      </div>
-    </StaticSection>
-    <StaticSection section-header="Mitglied der Wirtschaftskammer:">
-      <div class="text-section">
-        <p>Mitglied der Wirtschaftskammer Wien, Sparte Information und Consulting</p>
+        <p>Neuer Selbstständiger</p>
       </div>
     </StaticSection>
     <StaticSection section-header="Berufsbezeichnung:">

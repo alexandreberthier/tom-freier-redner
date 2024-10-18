@@ -103,6 +103,21 @@ const router = createRouter({
       }
     },
     {
+      path: '/moderation',
+      name: 'moderation',
+      component: () => import('@/views/ModerationView.vue'),
+      meta: {
+        title: {
+          de: 'Moderation | Tom Salzlechner',
+          en: 'Moderation | Tom Salzlechner'
+        },
+        metaTags: {
+          de: 'Impressum der Webseite von Tom Salzlechner.',
+          en: 'Imprint for the website of Tom Salzlechner.'
+        }
+      }
+    },
+    {
       path: '/:pathMatch(.*)*',
       redirect: '/',
     }

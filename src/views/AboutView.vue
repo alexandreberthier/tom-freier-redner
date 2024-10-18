@@ -2,7 +2,7 @@
  <StaticSiteLayout
      :header="translations.aboutHeader"
      :subHeaderText="translations.aboutSubText"
-     :image1="'img_tom1-min.webp'"
+     :image1="'img_tom11.jpeg'"
      :image2="'img_tom4-min.webp'"
      :main-text-header="translations.aboutMainTextHeader"
      :mainText1="translations.aboutMainText1"
