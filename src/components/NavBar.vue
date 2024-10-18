@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-wrapper">
+  <div :class="['nav-wrapper', {'shrink' : isScrolling}]">
     <div class="left-content">
       <router-link
           @click="closeMenu"
@@ -61,6 +61,25 @@ const translations = computed(() => centralStore.translations);
 
 const menuOpen: Ref<boolean> = ref(false)
 
+const isScrolling = ref(false);
+let lastScrollPosition = 0;
+let scrollTimeout: number | null = null;
+
+function handleScroll() {
+  const currentScrollPosition = window.scrollY;
+
+  if (currentScrollPosition > lastScrollPosition) {
+    isScrolling.value = true;
+    if (scrollTimeout) {
+      clearTimeout(scrollTimeout);
+    }
+    scrollTimeout = window.setTimeout(() => {
+      isScrolling.value = false;
+    }, 150);
+  }
+  lastScrollPosition = currentScrollPosition;
+}
+
 function toggleMenu() {
   menuOpen.value = !menuOpen.value;
   toggleBodyScroll(menuOpen.value);
@@ -89,10 +108,15 @@ function handleResize() {
 
 onMounted(() => {
   window.addEventListener('resize', handleResize);
+  window.addEventListener('scroll', handleScroll);
 })
 
 onUnmounted(() => {
   window.removeEventListener('resize', handleResize);
+  window.removeEventListener('scroll', handleScroll);
+  if (scrollTimeout) {
+    clearTimeout(scrollTimeout);
+  }
 })
 
 
@@ -133,6 +157,11 @@ const links: ComputedRef<Link[]> = computed(() => [
   justify-content: space-between;
   position: relative;
   padding: 5px 20px 5px 0;
+  transition: all 200ms ease-in-out;
+
+  &.shrink {
+    height: 65px;
+  }
 
   .left-content {
     display: flex;

@@ -63,7 +63,7 @@
 
   <section class="slider-section">
     <h2>{{ translations.homeServiceSectionHeader }}</h2>
-    <DynamicSlider :auto-slide="false">
+    <DynamicSlider :hide-controls="1200" :auto-slide="false">
       <ServiceCard v-for="(service, index) in services" :key="index" :service="service" />
     </DynamicSlider>
   </section>

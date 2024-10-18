@@ -5,20 +5,41 @@
         <slot></slot>
       </div>
     </div>
-    <div v-if="!allSlidesVisible" class="controls">
-      <button @click="prevSlide" class="control-btn">Prev</button>
-      <button @click="nextSlide" class="control-btn">Next</button>
+    <div v-if="!allSlidesVisible && !hideControlsFrom" class="controls">
+      <div @click="prevSlide" class="button" role="button">
+        <div class="icon-wrapper">
+          <img :src="getImage('ic_chevron_white_left.png')" alt="chevron links">
+        </div>
+      </div>
+      <div @click="nextSlide" class="button" role="button">
+        <div class="icon-wrapper">
+          <img :src="getImage('ic_chevron_white_right.png')" alt="chevron rechts">
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, nextTick, onBeforeUnmount } from 'vue';
+import {ref, onMounted, nextTick, onBeforeUnmount, computed} from 'vue';
+import {windowUtils} from "@/utils/WindowWidthUtils";
+import {getImage} from "@/utils/ImageUtils";
 
 // Props
 const props = defineProps<{
   autoSlide: boolean;
+  hideControls?: number
 }>();
+
+const {windowWidth} = windowUtils()
+
+const hideControlsFrom = computed(() => {
+  if (props.hideControls) {
+    return windowWidth.value >= props.hideControls;
+  }
+  return false;
+});
+
 
 // Refs
 const slider = ref<HTMLElement | null>(null);
@@ -31,7 +52,6 @@ let slideCount = 0;
 let isTransitioning = false;
 const allSlidesVisible = ref(false);
 
-// Clone slides for infinite scrolling
 const cloneSlides = () => {
   if (!slider.value) return;
 
@@ -41,20 +61,18 @@ const cloneSlides = () => {
 
   slider.value.appendChild(firstSlideClone);
   slider.value.insertBefore(lastSlideClone, slides[0]);
-};
+}
 
-// Remove clones when resizing if all slides are visible
 const removeClonedSlides = () => {
   if (!slider.value) return;
 
   const slides = Array.from(slider.value.children) as HTMLElement[];
   if (slides.length > slideCount) {
-    slider.value.removeChild(slides[slides.length - 1]); // Remove last clone
-    slider.value.removeChild(slides[0]); // Remove first clone
+    slider.value.removeChild(slides[slides.length - 1]);
+    slider.value.removeChild(slides[0]);
   }
 };
 
-// Calculate visible slides and update slide dimensions
 const updateSliderDimensions = () => {
   if (!wrapper.value || !slider.value || !container.value) return;
 
@@ -62,13 +80,11 @@ const updateSliderDimensions = () => {
   const slides = Array.from(slider.value.children) as HTMLElement[];
   slideCount = slides.length;
 
-  // Dynamically calculate the slide width based on visible area
   slideWidth = slides[0].clientWidth;
-  const visibleSlides = Math.floor(containerWidth / (slideWidth + 20)); // 20px gap
+  const visibleSlides = Math.floor(containerWidth / (slideWidth + 20));
 
-  allSlidesVisible.value = slideCount <= visibleSlides + 2; // +2 because of cloned slides
+  allSlidesVisible.value = slideCount <= visibleSlides + 2;
 
-  // Remove clones if all slides are visible
   if (allSlidesVisible.value) {
     removeClonedSlides();
   } else {
@@ -76,16 +92,14 @@ const updateSliderDimensions = () => {
   }
 
   // Set slider width
-  slider.value.style.width = `${(slideWidth + 20) * slideCount}px`; // Include gap
+  slider.value.style.width = `${(slideWidth + 20) * slideCount}px`;
 
-  // Recalculate the current index based on the new dimensions
+
   currentIndex.value = Math.min(currentIndex.value, slideCount - 2);
 
-  // Reposition the slider after resizing
   updateSliderPosition();
-};
+}
 
-// Move to the next slide
 const nextSlide = () => {
   if (isTransitioning || !slider.value || allSlidesVisible.value) return;
   isTransitioning = true;
@@ -93,7 +107,6 @@ const nextSlide = () => {
   updateSliderPosition();
 };
 
-// Move to the previous slide
 const prevSlide = () => {
   if (isTransitioning || !slider.value || allSlidesVisible.value) return;
   isTransitioning = true;
@@ -101,39 +114,36 @@ const prevSlide = () => {
   updateSliderPosition();
 };
 
-// Update slider position with smooth transition
 const updateSliderPosition = () => {
   if (!slider.value) return;
-  slider.value.style.transition = 'transform 0.5s ease-in-out';
+  slider.value.style.transition = 'transform 0.9s ease-in-out';
   slider.value.style.transform = `translateX(-${(currentIndex.value * (slideWidth + 20))}px)`; // Include gap
 };
 
-// Handle transition end for infinite effect
 const handleTransitionEnd = () => {
   if (!slider.value) return;
 
   const slides = Array.from(slider.value.children) as HTMLElement[];
-  const realSlideCount = slides.length - 2; // Subtract the two cloned slides
+  const realSlideCount = slides.length - 2;
 
   if (currentIndex.value >= realSlideCount + 1) {
     slider.value.style.transition = 'none';
     currentIndex.value = 1;
-    slider.value.style.transform = `translateX(-${slideWidth + 20}px)`; // Include gap
+    slider.value.style.transform = `translateX(-${slideWidth + 20}px)`;
   } else if (currentIndex.value <= 0) {
     slider.value.style.transition = 'none';
     currentIndex.value = realSlideCount;
-    slider.value.style.transform = `translateX(-${(slideWidth + 20) * realSlideCount}px)`; // Include gap
+    slider.value.style.transform = `translateX(-${(slideWidth + 20) * realSlideCount}px)`;
   }
 
   isTransitioning = false;
 };
 
-// Auto slide functionality
 const startAutoSlide = () => {
   if (autoSlideTimer) return;
   autoSlideTimer = setInterval(() => {
     nextSlide();
-  }, 3000); // Adjust slide interval here
+  }, 5000);
 };
 
 const stopAutoSlide = () => {
@@ -143,7 +153,6 @@ const stopAutoSlide = () => {
   }
 };
 
-// Mounted hook
 onMounted(() => {
   nextTick(() => {
     cloneSlides();
@@ -153,10 +162,10 @@ onMounted(() => {
     if (props.autoSlide) {
       startAutoSlide();
     }
-  });
-});
+  })
+})
 
-// Cleanup before unmounting
+
 onBeforeUnmount(() => {
   stopAutoSlide();
   window.removeEventListener('resize', updateSliderDimensions);
@@ -169,6 +178,9 @@ onBeforeUnmount(() => {
   position: relative;
   overflow: hidden;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 }
 
 .slider-wrapper {
@@ -178,24 +190,32 @@ onBeforeUnmount(() => {
 
 .slider {
   display: flex;
-  transition: transform 0.5s ease-in-out;
-  gap: 20px; /* 20px gap between slides */
+  transition: transform 0.9s ease-in-out;
+  gap: 20px;
 }
 
 .controls {
   display: flex;
-  justify-content: space-between;
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  transform: translateY(-50%);
-}
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 50px;
 
-.control-btn {
-  background-color: #333;
-  color: #fff;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
+  .button {
+    background-color: var(--beige);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+
+    .icon-wrapper {
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
 }
 </style>

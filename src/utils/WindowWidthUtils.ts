@@ -2,7 +2,7 @@ import {computed, onMounted, onUnmounted, ref} from "vue";
 
 export function windowUtils() {
 
-    const windowWidth = ref()
+    const windowWidth = ref(window.innerWidth)
 
     const isDesktopOrLarger = computed(()=>{
         return windowWidth.value >= 1200

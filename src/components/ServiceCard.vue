@@ -44,11 +44,15 @@ defineProps<{
   box-sizing: border-box;
   padding: 20px 14px;
   border: 1px solid var(--dark-green);
-  border-radius: 20px;
+  border-radius: 14px;
   cursor: pointer;
 
   &:hover .image-wrapper img {
     transform: scale(1.1);
+  }
+
+  &:hover {
+    border: 2px solid var(--dark-green)
   }
 
   .image-wrapper {
@@ -76,7 +80,29 @@ defineProps<{
     justify-content: flex-start;
     gap: 8px;
     min-height: 140px;
+
+    p {
+      min-width: 270px;
+    }
   }
+}
+
+@media (min-width: 1200px) {
+  .card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 300px;
+    height: 540px;
+    box-sizing: border-box;
+    padding: 20px 14px;
+    border: 1px solid var(--dark-green);
+    border-radius: 14px;
+    cursor: pointer;
+  }
+
 }
 
 </style>
