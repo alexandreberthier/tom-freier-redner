@@ -27,7 +27,9 @@
   "guestComment1": "Am 14.09.2024 durfte ich bei einer wunderschönen Hochzeit dabei sein, die von Tom geleitet wurde – ich war begeistert! Seine Rede war eine perfekte Mischung aus Charme, Witz und romantischen Momenten. Er nahm uns alle mit auf eine emotionale Reise durch das Leben des Brautpaares.",
   "guestComment2": "Lieber Tom, danke, dass du unsere Hochzeit mit deinen wunderbaren Worten bereichert hast. Deine Rede war emotional, einfühlsam und voller Humor – sie hat genau das eingefangen, was uns als Paar ausmacht. Es war ein unvergesslicher Moment, der uns für immer in Erinnerung bleiben wird. Vielen Dank! Alles Liebe, Maxi und Philip",
   "guestComment3": "Ich durfte eine Rede live erleben, und es war einfach magisch! Die Mischung aus schönen Worten, Zitaten und Humor machte diesen Moment unvergesslich. Vielen Dank!",
-
+  "dontForgetField": "Vergiss dieses Feld nicht!",
+  "formSuccessMessage": "Anfrage erfolgreich gesendet!",
+  "formErrorMessage" : "Anfrage konnte nicht gesendet werden!",
 
 
 "homeHeader": "Mit den Gästen statt vor den Gästen",

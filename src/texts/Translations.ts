@@ -117,4 +117,7 @@ export interface Translations {
     guestComment1: string;
     guestComment2: string;
     guestComment3: string;
+    dontForgetField: string;
+    formSuccessMessage: string;
+    formErrorMessage : string;
 }

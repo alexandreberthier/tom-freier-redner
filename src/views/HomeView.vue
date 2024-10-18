@@ -218,7 +218,7 @@ function sendContactForm() {
 
   fields.forEach(field => {
     if (!field.value.value) {
-      field.error.value = 'Feld darf nicht leer sein';
+      field.error.value = translations.value.dontForgetField
       isValid = false;
     } else {
       field.error.value = '';
@@ -231,7 +231,7 @@ function sendContactForm() {
       if (firstErrorElement) {
         firstErrorElement.scrollIntoView({behavior: 'smooth', block: 'center'});
       }
-    });
+    })
     return;
   }
 
@@ -245,7 +245,7 @@ function sendContactForm() {
 
   emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, USER_ID)
       .then(() => {
-        successMessage.value = 'Formular erfolgreich gesendet!';
+        successMessage.value = translations.value.successMessage
         firstName.value = '';
         lastName.value = '';
         email.value = '';
@@ -253,8 +253,8 @@ function sendContactForm() {
         message.value = '';
       })
       .catch(error => {
-        errorMessage.value = 'Formular konnte nicht gesendet werden';
-        console.error('Fehler beim Senden der E-Mail:', error);
+        errorMessage.value = translations.value.formErrorMessage
+        console.error(error);
       })
 }
 
