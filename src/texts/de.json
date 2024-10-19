@@ -44,6 +44,7 @@
   "homeServiceCardText1": "Ich begleite Euch an Eurem besonderen Tag und gestalte eine Zeremonie, die Eure Liebe und Persönlichkeit auf ganz besondere Weise widerspiegelt.",
   "homeServiceCardText2": "Lasst uns gemeinsam die Ankunft Eures Kindes feiern und diesen neuen Lebensabschnitt mit einer herzlichen Zeremonie willkommen heißen",
   "homeServiceCardText3": "Gemeinsam gestalten wir eine liebevolle Lebensfeier, die mit Wärme und persönlichem Trost an den verstorbenen Menschen erinnert.",
+  "homeServiceCardText4": "Gemeinsam gestalten wir unvergessliche Events, die deine Mitarbeiter und Gäste würdigen – mit humorvoller und professioneller Moderation.",
   "homeFaqQuestion1": "Wie läuft die Vorbereitung auf die Zeremonie ab?",
   "homeFaqAnswer1": "Wir treffen uns zu einem persönlichen Gespräch, um eure Wünsche und Vorstellungen genau zu besprechen. Danach bereite ich eine Zeremonie vor, die perfekt zu euch passt.",
   "homeFaqQuestion2": "Wie lange dauert eine Trauungs- oder Willkommenszeremonie?",
@@ -126,5 +127,39 @@
   "childCelebrationFaqQuestion5": "In welcher Umgebung kann eine Lebens- oder Trauerfeier stattfinden?",
   "childCelebrationFaqAnswer5": "Die Feier kann an jedem Ort stattfinden, der für die Familie und die verstorbene Person von Bedeutung ist. Ob im Freien, in einer Trauerhalle oder an einem besonderen Ort – ich bin flexibel und unterstütze euch bei der Auswahl des passenden Rahmens.",
 
-  "imprintHeader": "Impressum"
+  "imprintHeader": "Impressum",
+  "imprintSectionHeader1": "Angaben gemäß § 5 E-Commerce-Gesetz (ECG):",
+  "imprintSectionHeader2": "Kontakt:",
+  "imprintSectionHeader3": "Unternehmensform:",
+  "imprintSectionText3": "Neuer Selbstständiger",
+  "imprintSectionHeader4": "Berufsbezeichnung:",
+  "imprintSectionText4": "<p>Neuer Selbstständiger</p> <p>Verliehen in: Österreich</p>",
+  "imprintSectionHeader5": "Berufsrechtliche Vorschriften:",
+  "imprintSectionText5": "E-Commerce-Gesetz (ECG), Mediengesetz (MedienG), Gewerbeordnung (GewO)",
+  "imprintSectionHeader6": "Verantwortlich für den Inhalt:",
+  "imprintSectionHeader7": "Haftung für Inhalte",
+  "imprintSectionText7": "Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäß § 5 ECG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.",
+  "imprintSectionHeader8": "Haftung für Links",
+  "imprintSectionText8": "Unser Angebot enthält Links zu externen Websites, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.",
+  "imprintSectionHeader9": "Urheberrecht:",
+  "imprintSectionText9": "<p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem österreichischen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechts bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet.</p> <p>Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.</p>",
+
+
+
+
+  "moderationHeader": "Besondere Feiern erfordern besondere Worte",
+  "moderationSubText": "Hochzeiten, Lebensfeiern und Kinderwillkommensfeste beschreiben meist neue Abschnitte im Leben von Menschen – natürlich gibt es noch weitere Momente oder Ereignisse, die es wert sind, gemeinsam anzuhalten. Gerne begleite ich jegliche Art von Feiern, Zeremonien oder Veranstaltungen.",
+  "moderationMainTextHeader": "Firmenfeiern & Jubiläen",
+  "moderationMainText1": "<p>Die wichtigste und meist gefragteste „Ressource“ in einem Unternehmen ist der Mensch selbst. Gute Mitarbeiter*innen sind schwer zu finden und noch schwieriger zu halten. Firmenfeiern & Jubiläen sind Arten Mitarbeiter*innen wertzuschätzen und die Wirkung von Wertschätzungen dürfen nicht unterschätzt werden. Aus diesem Grund würde es mich freuen, wenn ich eure Firmenfeier oder Jubiläen mit meinen Worten und meiner Persönlichkeit gestalten, sowie begleiten darf.</p>",
+  "moderationMainText2": "<p>Ihr habt eine Veranstaltung geplant, aber noch nicht den richtigen Moderator gefunden? Bei mir seid ihr richtig – durch mein humorvolles, offenes & empathisches Wesen hole ich eure Gäste ab, nehme sie an der Hand und führe sie durch eure Veranstaltung.</p> <p> <b> Erneuerung von Eheversprechen </b></p> <p> Nach Jahren des gemeinsamen Lebens, finde ich es schön, wenn Eheversprechen erneuert werden. Immerhin hat man gemeinsam sehr schöne, aber auch schwere Zeiten erlebt, da ist es doch schön, sich die gegenseitige Liebe erneut zu gestehen. Ein selbstgeschriebenes Gelöbnis, der richtige Rahmen und natürlich meine Worte, sorgen für eine unvergessliche Ehrung eures Versprechens.</p>",
+  "moderationFaqQuestion1": "Wie kann ein Moderator deine Firmenfeier oder dein Jubiläum bereichern?",
+  "moderationFaqAnswer1": "Ein Moderator sorgt dafür, dass alles reibungslos verläuft und deine Gäste sich wohlfühlen. Ich bringe Humor, Empathie und eine lockere Atmosphäre mit, damit du dein Event entspannt genießen kannst.",
+  "moderationFaqQuestion2": "Warum einen Moderator statt eines Mitarbeiters für die Firmenfeier?",
+  "moderationFaqAnswer2": "Als externer Moderator kann ich das Event neutral und professionell führen, ohne dass dein Team zusätzlich belastet wird. So kannst du dich voll und ganz auf deine Gäste konzentrieren.",
+  "moderationFaqQuestion3": "Warum einen freien Redner für die Erneuerung von Eheversprechen wählen?",
+  "moderationFaqAnswer3": "Ich gestalte diesen besonderen Moment mit persönlichen Worten, die eure gemeinsame Geschichte feiern. So wird die Erneuerung eurer Eheversprechen noch unvergesslicher.",
+  "moderationFaqQuestion4": "Wie verbessert eine Moderation deine Firmenveranstaltung?",
+  "moderationFaqAnswer4": "Eine gute Moderation sorgt für klare Abläufe und eine entspannte Atmosphäre. So können sich alle Gäste wohlfühlen, und du kannst sicher sein, dass dein Event ein voller Erfolg wird.",
+  "moderationFaqQuestion5": "Für welche Anlässe ist eine Moderation sinnvoll?",
+  "moderationFaqAnswer5": "Ob Firmenfeier, Jubiläum, Hochzeit oder private Feier – eine professionelle Moderation sorgt dafür, dass dein Event harmonisch und unterhaltsam verläuft."
 }

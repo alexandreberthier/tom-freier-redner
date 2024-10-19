@@ -108,12 +108,12 @@ const router = createRouter({
       component: () => import('@/views/ModerationView.vue'),
       meta: {
         title: {
-          de: 'Moderation | Tom Salzlechner',
-          en: 'Moderation | Tom Salzlechner'
+          de: 'Moderation für Firmenfeiern und besondere Anlässe | Tom Salzlechner',
+          en: 'Moderation for Corporate Events and Special Occasions | Tom Salzlechner'
         },
         metaTags: {
-          de: 'Impressum der Webseite von Tom Salzlechner.',
-          en: 'Imprint for the website of Tom Salzlechner.'
+          de: 'Professionelle Moderation für Firmenfeiern, Jubiläen, Hochzeiten und andere besondere Anlässe. Mit Humor und Empathie durch den Tag geführt.',
+          en: 'Professional moderation for corporate events, anniversaries, weddings, and other special occasions. Guided through the day with humor and empathy.'
         }
       }
     },
@@ -141,25 +141,20 @@ const router = createRouter({
   linkExactActiveClass: 'active'
 })
 
-// Verwende den Central Store für die Sprache
 router.afterEach((to) => {
   const store = useCentralStore();
   const currentLang = store.currentLanguage as LanguageKey;
 
-  // Setze den Titel basierend auf der Sprache
   const meta = to.meta as RouteMeta;
   if (meta.title && meta.title[currentLang]) {
     document.title = meta.title[currentLang];
   }
 
-  // Setze die Meta-Beschreibung basierend auf der Sprache, falls `metaTags` definiert ist
   const metaDescription = document.querySelector('meta[name="description"]');
   if (metaDescription && meta.metaTags && meta.metaTags[currentLang]) {
     metaDescription.setAttribute('content', meta.metaTags[currentLang]);
   }
-
-  // Aktualisiere das 'lang' Attribut im <html> Tag
   document.documentElement.lang = currentLang;
-});
+})
 
 export default router;

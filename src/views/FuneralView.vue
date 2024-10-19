@@ -2,8 +2,8 @@
   <StaticSiteLayout
       :header="translations.funeralHeader"
       :subHeaderText="translations.funeralSubText"
-      :image1="'img_tom18.jpeg'"
-      :image2="'img_tom5-min.webp'"
+      :image1="'img_tom18.webp'"
+      :image2="'img_tom5.webp'"
       :main-text-header="translations.funeralMainTextHeader"
       :mainText1="translations.funeralMainText1"
       :mainText2="translations.funeralMainText2"

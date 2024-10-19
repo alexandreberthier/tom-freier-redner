@@ -2,8 +2,8 @@
  <StaticSiteLayout
      :header="translations.aboutHeader"
      :subHeaderText="translations.aboutSubText"
-     :image1="'img_tom11.jpeg'"
-     :image2="'img_tom4-min.webp'"
+     :image1="'img_tom11.webp'"
+     :image2="'img_tom4.webp'"
      :main-text-header="translations.aboutMainTextHeader"
      :mainText1="translations.aboutMainText1"
      :mainText2="translations.aboutMainText2"
@@ -12,7 +12,12 @@
  >
    <section class="bottom-section">
      <div class="image-wrapper">
-       <img :src="getImage('img_tom1-min.webp')" alt="image">
+       <iframe width="100%" height="100%"
+               src="https://www.youtube.com/embed/1lKrSjl0ZfY?si=Oo4WPTniUHe8gDdj"
+               title="YouTube video player"
+               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+               referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+       </iframe>
      </div>
      <div class="skill-flex">
        <div
@@ -116,13 +121,14 @@ const skills = computed(() => [
   gap: 32px;
 
   .image-wrapper {
-    img {
+    border-radius: 14px;
+
+    iframe {
       width: 100%;
-      height: 100%;
+      aspect-ratio: 16 / 9;
       border-radius: 14px;
     }
   }
-
   .skill-flex {
     display: flex;
     flex-direction: column;
@@ -147,29 +153,42 @@ const skills = computed(() => [
 
 @media (min-width: 1200px) {
   .bottom-section {
-    .skill-flex {
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-    }
+    flex-direction: row;
+    gap: unset;
+    justify-content: space-between;
+    align-items: center;
+
     .image-wrapper {
-      img {
-        width: 100%;
-        height: 350px;
-        object-fit: cover;
+      iframe {
+        width: 400px;
+        aspect-ratio: 16 / 9;
+        border-radius: 14px;
+        height: auto;
       }
+    }
+    .skill-flex {
+      gap: 32px;
     }
   }
 }
 
 @media (min-width: 1920px) {
   .bottom-section {
+    flex-direction: row;
+    gap: 60px;
+    justify-content: center;
+
+
     .image-wrapper {
-      img {
-        width: 100%;
-        height: 400px;
-        object-fit: cover;
+      iframe {
+        width: 600px;
+        aspect-ratio: 16 / 9;
+        border-radius: 14px;
+        height: auto;
       }
+    }
+    .skill-flex {
+      gap: 50px;
     }
   }
 }

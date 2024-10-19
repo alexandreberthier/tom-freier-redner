@@ -2,7 +2,7 @@
   <StaticSiteLayout
       :header="translations.weddingHeader"
       :subHeaderText="translations.weddingSubText"
-      :image1="'img_tom3-min.webp'"
+      :image1="'img_tom3.webp'"
       :image2="'img_tom10.jpeg'"
       :main-text-header="translations.weddingMainTextHeader"
       :mainText1="translations.weddingMainText1"

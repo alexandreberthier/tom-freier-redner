@@ -1,17 +1,7 @@
 <template>
-  <!--<div class="parallax-container">
-    <div class="background">
-      <div class="overlay"></div>
-    </div>
-    <header>
-      <h1 :style="{ transform: `translateY(-${parallaxYHeader}px)` }" >Mit den Gästen, statt vor den Gästen</h1>
-    </header>
-      <p class="text-header" :style="{ transform: `translateY(${parallaxYText}px)` }">{{ translations.homeSubText }}</p>
-  </div> -->
-
   <div class="content-wrapper">
     <section ref="hero" class="hero fade-up">
-     <h1>{{ translations.homeHeader }}</h1>
+      <h1>{{ translations.homeHeader }}</h1>
       <p>{{ translations.homeSubText }}</p>
       <div class="button-section">
         <DynamicButton
@@ -31,13 +21,13 @@
     </section>
     <section class="hero-images">
       <div ref="image1" class="image-wrapper fade-up">
-        <img class="image1" :src="getImage('img_tom1-min.webp')" alt="hochzeit">
+        <img class="image1" :src="getImage('img_tom1.webp')" alt="hochzeit">
       </div>
       <div ref="image2" class="image-wrapper fade-up">
-        <img class="image2" :src="getImage('img_tom5-min.webp')" alt="hochzeit">
+        <img class="image2" :src="getImage('img_tom5.webp')" alt="hochzeit">
       </div>
       <div ref="image3" class="image-wrapper fade-up">
-        <img class="image3" :src="getImage('img_tom6-min.webp')" alt="hochzeit">
+        <img class="image3" :src="getImage('img_tom6.webp')" alt="hochzeit">
       </div>
     </section>
   </div>
@@ -63,9 +53,9 @@
 
   <section class="slider-section">
     <h2>{{ translations.homeServiceSectionHeader }}</h2>
-    <DynamicSlider :hide-controls="1200" :auto-slide="false">
-      <ServiceCard v-for="(service, index) in services" :key="index" :service="service" />
-    </DynamicSlider>
+    <DotSlider>
+      <ServiceCard v-for="(service, index) in services" :key="index" :service="service"/>
+    </DotSlider>
   </section>
 
   <div class="content-wrapper">
@@ -84,10 +74,15 @@
            :key="index"
            :href="option.href">
           <div class="option">
-            <div class="icon-wrapper">
-              <img :src="getImage(option.image)" :alt="option.alt">
+            <div class="option-info">
+              <div class="icon-wrapper">
+                <img :src="getImage(option.image)" :alt="option.alt">
+              </div>
+              <p>{{ option.text }}</p>
             </div>
-            <p>{{ option.text }}</p>
+            <div class="icon-wrapper-chevron">
+              <img :src="getImage('ic_chevron_right.png')" alt="chevron rechts">
+            </div>
           </div>
         </a>
       </div>
@@ -133,7 +128,11 @@
               @click="sendContactForm"
               :button-text="translations.sendButton"
               :button-type="ButtonType.Primary"
+              :disabled="buttonDisabled"
+              v-model:is-loading="isLoading"
           />
+        </div>
+        <div class="messages">
           <p v-if="successMessage">{{ successMessage }}</p>
           <p v-if="errorMessage">{{ errorMessage }}</p>
         </div>
@@ -144,11 +143,9 @@
 </template>
 
 <script setup lang="ts">
-import {computed, type ComputedRef, nextTick, onMounted, onUnmounted, type Ref, ref} from 'vue';
+import {computed, type ComputedRef, nextTick, onMounted, type Ref, ref} from 'vue';
 import DynamicButton from "@/components/DynamicButton.vue";
-
 import {getImage} from "@/utils/ImageUtils";
-import DynamicSlider from "@/components/DynamicSlider.vue";
 import ServiceCard from "@/components/ServiceCard.vue";
 import type {Service} from "@/models/PropInterfaces";
 import {ButtonType, InputType} from "@/models/Enums";
@@ -156,6 +153,7 @@ import DynamicAccordion from "@/components/DynamicAccordion.vue";
 import DynamicInputField from "@/components/DynamicInputField.vue";
 import emailjs from 'emailjs-com';
 import {useCentralStore} from "@/stores/central";
+import DotSlider from "@/components/DotSlider.vue";
 
 interface ContactOption {
   href: string,
@@ -167,24 +165,6 @@ interface ContactOption {
 const centralStore = useCentralStore()
 
 const translations = computed(() => centralStore.translations);
-
-const parallaxYHeader = ref(0);
-const parallaxYText = ref(0);
-
-function handleScroll() {
-  let scrollPosition = window.scrollY;
-
-  parallaxYHeader.value = Math.min(scrollPosition * 0.3, 200);
-  parallaxYText.value = Math.min(scrollPosition * 0.2, 150);
-}
-
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
-});
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll);
-});
 
 const firstName: Ref<string> = ref('')
 const lastName: Ref<string> = ref('')
@@ -200,6 +180,8 @@ const messageError: Ref<string> = ref('')
 
 const successMessage: Ref<string> = ref('')
 const errorMessage: Ref<string> = ref('')
+const isLoading = ref(false)
+const buttonDisabled = ref(false)
 
 const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
@@ -235,6 +217,9 @@ function sendContactForm() {
     return;
   }
 
+  isLoading.value = true;
+  buttonDisabled.value = true;
+
   const templateParams = {
     firstName: firstName.value,
     lastName: lastName.value,
@@ -256,6 +241,10 @@ function sendContactForm() {
         errorMessage.value = translations.value.formErrorMessage
         console.error(error);
       })
+      .finally(() => {
+        isLoading.value = false;
+        buttonDisabled.value = false;
+      });
 }
 
 
@@ -282,25 +271,32 @@ const contactOptions: Ref<ContactOption[]> = ref([
 
 const services: ComputedRef<Service[]> = computed(() => [
   {
-    image: 'img_tom3-min.webp',
+    image: 'img_tom3.webp',
     alt: translations.value.weddingHeader,
     heading: translations.value.weddingHeader,
     text: translations.value.homeServiceCardText1,
     pathName: 'wedding'
   },
   {
-    image: 'img_tom12.jpeg',
+    image: 'img_tom12.webp',
     alt: translations.value.childCelebrationHeader,
     heading: translations.value.childCelebrationHeader,
     text: translations.value.homeServiceCardText2,
     pathName: 'child-celebration'
   },
   {
-    image: 'img_tom18.jpeg',
+    image: 'img_tom18.webp',
     alt: translations.value.funeralHeader,
     heading: translations.value.funeralHeader,
     text: translations.value.homeServiceCardText3,
     pathName: 'celebrations'
+  },
+  {
+    image: 'img_tom19.webp',
+    alt: translations.value.moderationHeader,
+    heading: translations.value.moderationMainTextHeader,
+    text: translations.value.homeServiceCardText4,
+    pathName: 'moderation'
   }
 ])
 
@@ -354,69 +350,6 @@ onMounted(() => {
 
 <style scoped>
 
-.parallax-container {
-  position: relative;
-  height: 100vh;
-  width: 100%;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.background {
-  background-image: url('../assets/images/img_tom1-min.webp');
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  z-index: 1;
-}
-
-header {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  h1 {
-
-    color: rgba(255, 255, 255, 0.9);
-    text-shadow: 2px 2px 10px rgba(0, 128, 0, 0.7); /* Grüner Schatten */
-    margin: 0 auto 20px auto;
-    width: 80%;
-  }
-}
-
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.3); /* Leichteres Overlay */
-  z-index: 0;
-}
-
-
-.text-header {
-  position: relative;
-  z-index: 1 ;
-  text-align: center;
-  width: 70%;
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 20px;
-  box-sizing: border-box;
-  margin-top: 20px; /* Mehr Abstand zwischen der Überschrift und diesem Textblock */
-  border-radius: 4px;
-}
 
 .extra-margin {
   margin-bottom: 16px;
@@ -533,6 +466,14 @@ header {
   flex-direction: column;
   gap: 32px;
 
+  .messages {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
   .contact-options {
     display: flex;
     flex-direction: column;
@@ -542,19 +483,47 @@ header {
     .option {
       display: flex;
       align-items: center;
-      flex-direction: column;
-      gap: 8px;
+      gap: 10px;
+      width: 320px;
+      border: 1px solid var(--dark-green);
+      border-radius: 4px;
+      box-sizing: border-box;
+      padding: 4px 8px;
 
-      .icon-wrapper {
+      .option-info {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        width: 85%;
+
+        .icon-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          img {
+            width: 40px;
+            height: 40px;
+          }
+        }
+      }
+
+      &:hover .icon-wrapper-chevron img {
+        transform: translateX(10px);
+      }
+
+      .icon-wrapper-chevron {
         display: flex;
         align-items: center;
         justify-content: center;
 
         img {
-          width: 40px;
-          height: 40px;
+          width: 20px;
+          height: 20px;
+          transition: all 200ms ease-in-out;
         }
       }
+
     }
   }
 
@@ -632,38 +601,15 @@ header {
     }
   }
 
-
   .slider-section {
     width: 640px;
   }
 
-  .contact-section {
-    .contact-options {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      gap: 80px;
-    }
-
-    .form-section {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-
-      .input-flex {
-        display: flex;
-        flex-direction: row;
-
-        & > * {
-          width: 100%
-        }
-      }
-
-      .button-wrapper {
-        align-self: center;
-      }
-    }
+  .button-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
@@ -709,9 +655,30 @@ header {
     }
   }
 
+  .contact-section {
+    .contact-options {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+
+    .form-section {
+      .input-flex {
+        flex-direction: row;
+
+        & > * {
+          width: 50%;
+        }
+      }
+    }
+  }
+
   .slider-section {
     width: 950px;
   }
+
 }
 
 @media (min-width: 1920px) {
@@ -753,6 +720,10 @@ header {
         }
       }
     }
+  }
+
+  .slider-section {
+    width: 1260px;
   }
 }
 
