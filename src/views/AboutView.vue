@@ -1,37 +1,39 @@
 <template>
- <StaticSiteLayout
-     :header="translations.aboutHeader"
-     :subHeaderText="translations.aboutSubText"
-     :image1="'img_tom11.webp'"
-     :image2="'img_tom4.webp'"
-     :main-text-header="translations.aboutMainTextHeader"
-     :mainText1="translations.aboutMainText1"
-     :mainText2="translations.aboutMainText2"
-     :faqs="faqs"
-     :quotes="quotes"
- >
-   <section class="bottom-section">
-     <div class="image-wrapper">
-       <iframe width="100%" height="100%"
-               src="https://www.youtube.com/embed/1lKrSjl0ZfY?si=Oo4WPTniUHe8gDdj"
-               title="YouTube video player"
-               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-               referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-       </iframe>
-     </div>
-     <div class="skill-flex">
-       <div
-           v-for="(skill, index) in skills"
-           :key="index"
-           class="skill">
-         <div class="icon-wrapper">
-           <img :src="getImage(skill.image)" :alt="skill.alt">
-         </div>
-         <p>{{ skill.text }}</p>
-       </div>
-     </div>
-   </section>
- </StaticSiteLayout>
+  <StaticSiteLayout
+      :header="translations.aboutHeader"
+      :subHeaderText="translations.aboutSubText"
+      :image1="'img_tom11.webp'"
+      image1alt="Benni und Tom"
+      :image2="'img_tom4.webp'"
+      image2alt="Tom und Benji"
+      :main-text-header="translations.aboutMainTextHeader"
+      :mainText1="translations.aboutMainText1"
+      :mainText2="translations.aboutMainText2"
+      :faqs="faqs"
+      :quotes="quotes"
+  >
+    <section class="bottom-section">
+      <div class="image-wrapper">
+        <iframe width="100%" height="100%"
+                src="https://www.youtube.com/embed/1lKrSjl0ZfY?si=Oo4WPTniUHe8gDdj"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+        </iframe>
+      </div>
+      <div class="skill-flex">
+        <div
+            v-for="(skill, index) in skills"
+            :key="index"
+            class="skill">
+          <div class="icon-wrapper">
+            <img :src="getImage(skill.image)" :alt="skill.alt">
+          </div>
+          <p>{{ skill.text }}</p>
+        </div>
+      </div>
+    </section>
+  </StaticSiteLayout>
 </template>
 
 <script setup lang="ts">
@@ -40,6 +42,7 @@ import {useCentralStore} from "@/stores/central";
 import {computed, type ComputedRef} from "vue";
 import type {Quote} from "@/models/PropInterfaces";
 import {getImage} from "@/utils/ImageUtils";
+
 const centerStore = useCentralStore()
 
 const translations = computed(() => {
@@ -129,6 +132,7 @@ const skills = computed(() => [
       border-radius: 14px;
     }
   }
+
   .skill-flex {
     display: flex;
     flex-direction: column;
@@ -166,6 +170,7 @@ const skills = computed(() => [
         height: auto;
       }
     }
+
     .skill-flex {
       gap: 32px;
     }
@@ -187,12 +192,12 @@ const skills = computed(() => [
         height: auto;
       }
     }
+
     .skill-flex {
       gap: 50px;
     }
   }
 }
-
 
 
 </style>

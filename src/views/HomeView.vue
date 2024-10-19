@@ -21,13 +21,13 @@
     </section>
     <section class="hero-images">
       <div ref="image1" class="image-wrapper fade-up">
-        <img class="image1" :src="getImage('img_tom1.webp')" alt="hochzeit">
+        <img class="image1" :src="getImage('img_tom1.webp')" alt="Tom und Benji">
       </div>
       <div ref="image2" class="image-wrapper fade-up">
-        <img class="image2" :src="getImage('img_tom5.webp')" alt="hochzeit">
+        <img class="image2" :src="getImage('img_tom5.webp')" alt="Austellung Freie Redner">
       </div>
       <div ref="image3" class="image-wrapper fade-up">
-        <img class="image3" :src="getImage('img_tom6.webp')" alt="hochzeit">
+        <img class="image3" :src="getImage('img_tom6.webp')" alt="Tom und Benni">
       </div>
     </section>
   </div>

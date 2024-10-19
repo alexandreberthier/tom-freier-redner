@@ -8,7 +8,7 @@
     <section class="main-section">
       <div ref="topWrapper" class="top-wrapper">
         <div class="image-wrapper">
-          <img :src="getImage(image1)" alt="image">
+          <img :src="getImage(image1)" :alt="image1alt">
         </div>
         <div class="heading-text">
           <h2>{{ mainTextHeader }}</h2>
@@ -18,7 +18,7 @@
       <div ref="bottomWrapper" class="bottom-wrapper">
         <p class="main-text2" v-html="mainText2"></p>
         <div class="image-wrapper">
-          <img :src="getImage(image2)" alt="image">
+          <img :src="getImage(image2)" :alt="image2alt">
         </div>
       </div>
     </section>
@@ -56,7 +56,9 @@ defineProps<{
   header: string,
   subHeaderText: string
   image1: string,
+  image1alt: string,
   image2: string,
+  image2alt: string,
   mainTextHeader: string
   mainText1: string,
   mainText2: string
