@@ -20,6 +20,7 @@ import StaticSiteLayout from "@/components/layouts/StaticSiteLayout.vue";
 import {useCentralStore} from "@/stores/central";
 import {computed, type ComputedRef} from "vue";
 import type {Quote} from "@/models/PropInterfaces";
+
 const centerStore = useCentralStore()
 
 const translations = computed(() => {
