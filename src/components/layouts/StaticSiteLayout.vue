@@ -30,7 +30,7 @@
     </section>
 
     <section class="quote-section">
-      <DynamicSlider :auto-slide="true">
+      <DotSlider>
         <div v-for="(quote, index) in quotes" :key="index" class="slide">
           <div class="image-wrapper">
             <img :src="getImage('ic_quote.png')" alt="image">
@@ -38,7 +38,7 @@
           <p class="text">{{ quote.text }}</p>
           <p class="author"> - {{ quote.author }}</p>
         </div>
-      </DynamicSlider>
+      </DotSlider>
     </section>
     <slot></slot>
   </div>
@@ -48,9 +48,9 @@
 <script setup lang="ts">
 import {getImage} from "@/utils/ImageUtils";
 import DynamicAccordion from "@/components/DynamicAccordion.vue";
-import DynamicSlider from "@/components/DynamicSlider.vue";
 import type {FaqItem, Quote} from "@/models/PropInterfaces";
 import {onMounted, ref} from "vue";
+import DotSlider from "@/components/DotSlider.vue";
 
 defineProps<{
   header: string,
