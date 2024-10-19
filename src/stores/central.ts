@@ -8,11 +8,16 @@ type LanguageKey = 'de' | 'en';
 
 export const useCentralStore = defineStore('central', () => {
     const languages = ref<{ de: Translations; en: Translations }>({ de, en });
-    const currentLanguage = ref<LanguageKey>(localStorage.getItem('lang') as LanguageKey || getUserLanguage());
+    const currentLanguage = ref<LanguageKey>(getStoredLanguage() || getUserLanguage() || 'de');
     const darkMode = ref<boolean>(localStorage.getItem('darkMode') === 'true' || false);
 
+    function getStoredLanguage(): LanguageKey | null {
+        const lang = localStorage.getItem('lang') as LanguageKey | null;
+        return lang === 'de' || lang === 'en' ? lang : null;
+    }
+
     function getUserLanguage(): LanguageKey {
-        const userLang = navigator.language || navigator.userAgent;
+        const userLang = navigator.language || navigator.languages[0];
         return userLang.startsWith('de') ? 'de' : 'en';
     }
 
