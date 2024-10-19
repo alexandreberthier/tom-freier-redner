@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import {computed, onMounted, onUnmounted, ref, nextTick, type Ref, ComputedRef} from 'vue';
+import {computed, onMounted, onUnmounted, ref, nextTick, type Ref, type ComputedRef} from 'vue';
 
 const sliderWrapper: Ref<HTMLDivElement | null> = ref(null);
 const slidesWrapper: Ref<HTMLDivElement | null> = ref(null);
