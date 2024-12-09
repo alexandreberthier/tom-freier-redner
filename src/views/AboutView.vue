@@ -2,10 +2,10 @@
   <StaticSiteLayout
       :header="translations.aboutHeader"
       :subHeaderText="translations.aboutSubText"
-      :image1="'img_tom11.webp'"
+      :image1="'img_tom11_lou.webp'"
       image1alt="Benni und Tom"
-      :image2="'img_tom4.webp'"
-      image2alt="Tom und Benji"
+      :image2="'Freier-Redner-Tom_92.webp'"
+      image2alt="Tom und Freunde"
       :main-text-header="translations.aboutMainTextHeader"
       :mainText1="translations.aboutMainText1"
       :mainText2="translations.aboutMainText2"

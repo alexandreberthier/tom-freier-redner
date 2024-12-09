@@ -2,9 +2,9 @@
   <StaticSiteLayout
       :header="translations.weddingHeader"
       :subHeaderText="translations.weddingSubText"
-      :image1="'img_tom3.webp'"
-      image1alt="Laura und Tom"
-      :image2="'img_tom10.webp'"
+      :image1="'Freier-Redner-Tom_58.webp'"
+      image1alt="Tom freie Rede"
+      :image2="'Freier-Redner-Tom_1.webp'"
       image2alt="Hochzeit von Philip und Maxi"
       :main-text-header="translations.weddingMainTextHeader"
       :mainText1="translations.weddingMainText1"
@@ -16,10 +16,10 @@
 </template>
 
 <script setup lang="ts">
-import StaticSiteLayout from "@/components/layouts/StaticSiteLayout.vue";
 import {useCentralStore} from "@/stores/central";
 import {computed, type ComputedRef} from "vue";
 import type {Quote} from "@/models/PropInterfaces";
+import StaticSiteLayout from "@/components/layouts/StaticSiteLayout.vue";
 const centerStore = useCentralStore()
 
 const translations = computed(() => {

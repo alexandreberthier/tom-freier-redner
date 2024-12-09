@@ -4,7 +4,7 @@
       :subHeaderText="translations.moderationSubText"
       :image1="'img_tom19.webp'"
       image1alt="Tom mit Mikrofon"
-      :image2="'img_tom15.webp'"
+      :image2="'Freier-Redner-Tom_62.webp'"
       image2alt="Tom mit Sonnenbrille"
       :main-text-header="translations.moderationMainTextHeader"
       :mainText1="translations.moderationMainText1"
